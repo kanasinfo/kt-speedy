@@ -9,6 +9,12 @@ class DateTimeExt {
         fun parse(dateTime: String, pattern: String): DateTime {
             return DateTime.parse(dateTime, DateTimeFormat.forPattern(pattern))
         }
+        /**
+         * 今天
+         */
+        fun today(): Date {
+            return DateTime.now().toDate()
+        }
     }
 }
 
