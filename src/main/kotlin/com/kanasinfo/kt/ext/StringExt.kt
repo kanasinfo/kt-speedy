@@ -13,3 +13,10 @@ fun String.pathAppend(path: String): String {
 fun String.getFileType(): String {
     return this.substringAfterLast(".")
 }
+
+/**
+ * like查询拼接
+ */
+fun String.toLikeQuery(): String {
+    return "%$this%"
+}
