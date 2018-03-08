@@ -1,6 +1,5 @@
 package com.kanasinfo.kt.ext
 
-import com.mongodb.WriteResult
 import com.mongodb.client.result.UpdateResult
 import org.bson.types.ObjectId
 import org.springframework.data.mongodb.core.FindAndModifyOptions
