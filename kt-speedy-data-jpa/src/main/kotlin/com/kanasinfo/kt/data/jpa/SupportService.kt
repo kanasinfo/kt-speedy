@@ -46,5 +46,4 @@ abstract class SupportService<T, ID : Serializable> {
     open fun delete(entity: T) {
         repository.delete(entity)
     }
-
 }
