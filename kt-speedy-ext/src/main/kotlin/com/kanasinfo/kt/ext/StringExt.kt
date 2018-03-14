@@ -15,8 +15,18 @@ fun String.getFileType(): String {
 }
 
 /**
- * like查询拼接
+ * like 查询拼接
  */
 fun String.toLikeQuery(): String {
     return "%$this%"
 }
+
+/**
+ * like 左侧模糊匹配
+ */
+fun String.toLeftLikeQuery() = "%$this"
+
+/**
+ * like 右侧模糊匹配
+ */
+fun String.toRightLikeQuery() = "$this%"
