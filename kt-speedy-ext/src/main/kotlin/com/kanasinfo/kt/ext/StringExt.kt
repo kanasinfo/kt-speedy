@@ -30,3 +30,14 @@ fun String.toLeftLikeQuery() = "%$this"
  * like 右侧模糊匹配
  */
 fun String.toRightLikeQuery() = "$this%"
+
+/**
+ * 最大字符长度
+ */
+fun String.substringMax(count: Int): String {
+    return if(this.length <= count)
+        this
+    else {
+        this.substring(0, count - 1)
+    }
+}
