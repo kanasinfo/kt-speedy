@@ -20,6 +20,13 @@ abstract class SupportService<T, ID : Serializable> {
         return repository.findById(id)
     }
 
+    /**
+     * 获取一个对象
+     */
+    fun getOne(id: ID): T {
+        return repository.getOne(id)
+    }
+
     @Transactional
     open fun save(t: T): T {
         return repository.save(t)
