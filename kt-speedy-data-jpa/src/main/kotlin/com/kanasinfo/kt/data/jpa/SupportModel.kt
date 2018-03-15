@@ -35,4 +35,8 @@ open class SupportModel : Serializable {
     override fun hashCode(): Int {
         return Objects.hash(id)
     }
+
+    override fun toString(): String {
+        return "${this.javaClass.name}#${this.id}"
+    }
 }
