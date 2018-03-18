@@ -7,10 +7,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>kt-speedy-ext</artifactId>
+    <artifactId>kt-speedy-data-mongo</artifactId>
     <packaging>jar</packaging>
 
-    <name>kt-speedy-ext</name>
+    <name>kt-speedy-data-mongo</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -19,14 +19,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>joda-time</groupId>
-            <artifactId>joda-time</artifactId>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-mongodb</artifactId>
             <version>RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>jmimemagic</groupId>
-            <artifactId>jmimemagic</artifactId>
-            <version>0.1.2</version>
         </dependency>
     </dependencies>
 </project>

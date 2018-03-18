@@ -1,4 +1,4 @@
-package com.kanasinfo.kt.ext
+package com.kanasinfo.kt.data.mongo
 
 import com.mongodb.client.result.UpdateResult
 import org.bson.types.ObjectId
