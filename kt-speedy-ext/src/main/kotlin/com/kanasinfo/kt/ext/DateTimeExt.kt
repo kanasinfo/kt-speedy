@@ -2,6 +2,8 @@ package com.kanasinfo.kt.ext
 
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
+import java.time.LocalDateTime
+import java.time.ZoneId
 import java.util.*
 
 class DateTimeExt {
@@ -56,4 +58,18 @@ fun Date.onlyDate(): Date {
 
 fun Date.format(pattern: String): String {
     return DateTime(this).toString(pattern)
+}
+
+/**
+ * 转换为Date
+ */
+fun java.time.LocalDate.toDate(): Date{
+    return Date.from(this.atStartOfDay(ZoneId.systemDefault()).toInstant())
+}
+
+/**
+ * 转换为Date
+ */
+fun LocalDateTime.toDate(): Date{
+    return Date.from(this.atZone(java.time.ZoneId.systemDefault()).toInstant())
 }
