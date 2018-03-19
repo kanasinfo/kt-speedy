@@ -43,8 +43,8 @@ fun String.substringMax(count: Int): String {
 }
 
 /**
- * 字符串是否有值
+ * 字符串不为空或空白
  */
-fun String?.isNotNullOrBlank(): Boolean {
+fun String?.isPresent(): Boolean {
     return !this.isNullOrBlank()
 }
