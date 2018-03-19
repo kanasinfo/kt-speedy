@@ -41,3 +41,10 @@ fun String.substringMax(count: Int): String {
         this.substring(0, count - 1)
     }
 }
+
+/**
+ * 字符串是否有值
+ */
+fun String?.isNotNullOrBlank(): Boolean {
+    return !this.isNullOrBlank()
+}
