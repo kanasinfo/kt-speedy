@@ -60,6 +60,8 @@ fun Date.format(pattern: String): String {
     return DateTime(this).toString(pattern)
 }
 
+fun Date.toDateTime(): DateTime = DateTime(this)
+
 /**
  * 转换为Date
  */
