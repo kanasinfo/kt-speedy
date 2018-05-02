@@ -147,3 +147,6 @@ fun <T> MongoTemplate.findOneWithIncludeFields(criteria: Criteria, includeFields
     return this.findOne(query, entityClass)
 }
 
+fun String.toObjectId(): ObjectId {
+    return ObjectId(this)
+}
