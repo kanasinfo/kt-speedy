@@ -103,6 +103,14 @@ fun <T> MongoTemplate.findWithIncludeFieldsById(id: ObjectId, includeFields: Lis
     return this.findOne(query, entityClass)
 }
 
+fun <T> MongoTemplate.findWithIncludeFields(query: Query, includeFields: List<String>, entityClass: Class<T>): List<T> {
+    val field = query.fields()
+    includeFields.forEach {
+        field.include(it)
+    }
+    return this.find(query, entityClass)
+}
+
 /**
  * 根据id进行查询
  */
@@ -116,7 +124,7 @@ fun <T> MongoTemplate.findWithExcludeFieldsById(id: ObjectId, excludeFields: Lis
     return this.findOne(query, entityClass)
 }
 
-fun <T> MongoTemplate.findIncludeFields(criteria: Criteria, includeFields: List<String>, entityClass: Class<T>): List<T> {
+fun <T> MongoTemplate.findWithIncludeFields(criteria: Criteria, includeFields: List<String>, entityClass: Class<T>): List<T> {
     val query = Query.query(criteria)
     val field = query.fields()
 
@@ -128,7 +136,7 @@ fun <T> MongoTemplate.findIncludeFields(criteria: Criteria, includeFields: List<
 }
 
 
-fun <T> MongoTemplate.findOneIncludeFields(criteria: Criteria, includeFields: List<String>, entityClass: Class<T>): T? {
+fun <T> MongoTemplate.findOneWithIncludeFields(criteria: Criteria, includeFields: List<String>, entityClass: Class<T>): T? {
     val query = Query.query(criteria)
     val field = query.fields()
 
@@ -139,3 +147,6 @@ fun <T> MongoTemplate.findOneIncludeFields(criteria: Criteria, includeFields: Li
     return this.findOne(query, entityClass)
 }
 
+fun String.toObjectId(): ObjectId {
+    return ObjectId(this)
+}

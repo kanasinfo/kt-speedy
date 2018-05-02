@@ -24,14 +24,14 @@ class DateTimeExt {
  * 获取一天的最开始
  */
 fun DateTime.startOfDay(): DateTime {
-    return this.withTime(0, 0, 0, 0)
+    return this.millisOfDay().withMinimumValue()
 }
 
 /**
  * 获取一天的结束
  */
 fun DateTime.endOfDay(): DateTime {
-    return this.withTime(23, 59, 59, 999)
+    return this.millisOfDay().withMaximumValue()
 }
 
 /**
@@ -41,15 +41,31 @@ fun DateTime.onlyTime(): DateTime {
     return DateTimeExt.parse(this.toString("HH:mm"), "HH:mm")
 }
 
-fun Date.onlyTime(): Date {
-    return DateTime(this).onlyTime().toDate()
-}
-
 /**
  * 去除时间，只留日期
  */
 fun DateTime.onlyDate(): DateTime {
     return DateTimeExt.parse(this.toString("yyyy-MM-dd"), "yyyy-MM-dd")
+}
+
+fun DateTime.startOfMonth(): DateTime {
+    return this.dayOfMonth().withMinimumValue().millisOfDay().withMinimumValue()
+}
+
+fun DateTime.endOfMonth(): DateTime {
+    return this.dayOfMonth().withMaximumValue().millisOfDay().withMaximumValue()
+}
+
+fun Date.onlyTime(): Date {
+    return DateTime(this).onlyTime().toDate()
+}
+
+fun Date.startOfMonth(): Date {
+    return this.toDateTime().startOfMonth().toDate()
+}
+
+fun Date.endOfMonth(): Date {
+    return this.toDateTime().endOfMonth().toDate()
 }
 
 fun Date.onlyDate(): Date {
