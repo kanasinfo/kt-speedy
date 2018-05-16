@@ -1,7 +1,7 @@
 package com.kanasinfo.kt.ext
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import java.util.Random
-
 
 
 /**
@@ -39,7 +39,7 @@ fun String.toRightLikeQuery() = "$this%"
  * 最大字符长度
  */
 fun String.substringMax(count: Int): String {
-    return if(this.length <= count)
+    return if (this.length <= count)
         this
     else {
         this.substring(0, count - 1)
@@ -53,6 +53,17 @@ fun String?.isPresent(): Boolean {
     return !this.isNullOrBlank()
 }
 
+fun <T> String.fromJson(t: Class<T>): T {
+    return ObjectMapper().readValue(this, t)
+}
+
+fun String.md5(): String {
+    return EncryptExt.md5(this)
+}
+
+fun String.sh1(): String {
+    return EncryptExt.sha1(this)
+}
 class StringExt {
     companion object {
         /**

@@ -82,7 +82,7 @@ fun <T> MongoTemplate.deleteById(id: ObjectId, entityClass: Class<T>) {
 /**
  * 根据主键更新数据
  */
-fun <T> MongoTemplate.updateMultiById(id: ObjectId, update: Update, entityClass: Class<T>): UpdateResult? {
+fun <T> MongoTemplate.updateMultiById(id: ObjectId, update: Update, entityClass: Class<T>): UpdateResult {
     return this.updateMulti(
             Query.query(Criteria.where("id").`is`(id)),
             update,
