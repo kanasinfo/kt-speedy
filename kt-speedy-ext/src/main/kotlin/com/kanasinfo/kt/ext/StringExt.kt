@@ -2,6 +2,7 @@ package com.kanasinfo.kt.ext
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import java.util.Random
+import java.util.regex.Pattern
 
 
 /**
@@ -64,6 +65,16 @@ fun String.md5(): String {
 fun String.sh1(): String {
     return EncryptExt.sha1(this)
 }
+
+/**
+ * 去除字符串中间所有的空格\t、回车\n、换行符\r、制表符\t
+ */
+fun String.trimForce(): String {
+    val p = Pattern.compile("\\s*|\t|\r|\n")
+    val m = p.matcher(this)
+    return m.replaceAll("")
+}
+
 class StringExt {
     companion object {
         /**
