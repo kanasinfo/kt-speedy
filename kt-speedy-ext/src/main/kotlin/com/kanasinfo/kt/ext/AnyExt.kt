@@ -11,6 +11,6 @@ fun Any?.notNull(f: ()-> Unit){
         f()
     }
 }
-fun Any.toMap(): Map<*, *>? {
+fun Any.toMap(): Map<String, Any>? {
     return jacksonObjectMapper().readValue(this.toJson())
 }
