@@ -23,8 +23,13 @@ abstract class SupportService<T, ID : Serializable> {
     /**
      * 获取一个对象
      */
-    fun getOne(id: ID): T {
-        return repository.getOne(id)
+    fun getOne(id: ID): T? {
+        val optional = repository.findById(id)
+        return if (optional.isPresent) {
+            optional.get()
+        }else {
+            null
+        }
     }
 
     @Transactional
