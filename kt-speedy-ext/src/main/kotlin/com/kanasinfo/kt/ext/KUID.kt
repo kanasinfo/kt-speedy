@@ -150,6 +150,13 @@ object KUID {
         sb.append(digits(uuid.leastSignificantBits, 12))
         return sb.toString()
     }
+
+    /**
+     * 产生UUID
+     */
+    fun getUUID(): String {
+        return UUID.randomUUID().toString().replace("-", "")
+    }
 }
 
 fun main(args: Array<String>) {
