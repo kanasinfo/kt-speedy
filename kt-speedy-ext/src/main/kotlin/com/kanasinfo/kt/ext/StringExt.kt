@@ -54,6 +54,10 @@ fun String?.isPresent(): Boolean {
     return !this.isNullOrBlank()
 }
 
+fun String?.isNotPresent(): Boolean {
+    return !this.isPresent()
+}
+
 fun <T> String.fromJson(t: Class<T>): T {
     return ObjectMapper().readValue(this, t)
 }
