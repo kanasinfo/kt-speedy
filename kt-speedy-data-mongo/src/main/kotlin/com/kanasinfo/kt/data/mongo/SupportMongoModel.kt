@@ -8,6 +8,7 @@ import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedBy
 import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
+import java.io.Serializable
 
 import javax.persistence.EntityListeners
 import javax.persistence.Id
@@ -16,10 +17,10 @@ import java.util.Date
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener::class)
-class SupportMongoModel {
+open class SupportMongoModel : Serializable {
     @Id
     @JsonSerialize(using = ToStringSerializer::class)
-    var id: ObjectId? = null
+    lateinit var id: ObjectId
 
     @CreatedDate
     var createdDate: Date? = null
