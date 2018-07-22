@@ -3,6 +3,7 @@ package com.kanasinfo.kt.ext
 import com.fasterxml.jackson.databind.ObjectMapper
 import java.util.Random
 import java.util.regex.Pattern
+import java.util.UUID
 
 
 /**

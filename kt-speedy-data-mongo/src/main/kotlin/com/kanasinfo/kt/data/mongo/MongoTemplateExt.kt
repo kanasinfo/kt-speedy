@@ -63,10 +63,7 @@ fun MongoTemplate.updateById(id: ObjectId, update: Update, collectionName: Strin
  * 根据主键删除
  */
 fun <T> MongoTemplate.removeById(id: ObjectId, entityClass: Class<T>) {
-    this.remove(
-            Query.query(Criteria.where("id").`is`(id)),
-            entityClass
-    )
+    deleteById(id, entityClass)
 }
 
 /**
