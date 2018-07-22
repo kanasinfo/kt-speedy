@@ -45,4 +45,8 @@
             <version>2.9.4</version>
         </dependency>
     </dependencies>
+    <build>
+        <sourceDirectory>src/main/kotlin</sourceDirectory>
+        <testSourceDirectory>src/test/kotlin</testSourceDirectory>
+    </build>
 </project>
