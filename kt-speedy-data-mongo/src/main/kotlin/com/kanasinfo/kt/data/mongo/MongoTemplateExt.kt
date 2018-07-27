@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.query.*
 /**
  * 更新并返回数据
  */
-fun <T> MongoTemplate.modifyAndReturn(queryCriteria: Criteria, update: Update, ignoreFields: List<String>, entityClass: Class<T>): T {
+fun <T> MongoTemplate.findAndModify(queryCriteria: Criteria, update: Update, ignoreFields: List<String>, entityClass: Class<T>): T {
     val query = Query.query(queryCriteria)
     val field = query.fields()
 
@@ -24,15 +24,44 @@ fun <T> MongoTemplate.modifyAndReturn(queryCriteria: Criteria, update: Update, i
             entityClass
     )
 }
+/**
+ * 更新并返回数据
+ */
+fun <T> MongoTemplate.findAndModifyWithIncludeFields(queryCriteria: Criteria, update: Update, includeFields: List<String>, entityClass: Class<T>): T {
+    val query = Query.query(queryCriteria)
+    val field = query.fields()
+
+    includeFields.forEach {
+        field.include(it)
+    }
+
+    return this.findAndModify(
+            query,
+            update,
+            FindAndModifyOptions().returnNew(true),
+            entityClass
+    )
+}
 
 /**
  * 根据主键进行数据更新
  */
-fun <T> MongoTemplate.modifyAndReturnById(id: ObjectId, update: Update, ignoreFields: List<String>, entityClass: Class<T>): T {
-    return this.modifyAndReturn(
+fun <T> MongoTemplate.findAndModifyById(id: ObjectId, update: Update, ignoreFields: List<String>, entityClass: Class<T>): T {
+    return this.findAndModify(
             Criteria("id").`is`(id),
             update,
             ignoreFields,
+            entityClass
+    )
+}
+/**
+ * 根据主键进行数据更新
+ */
+fun <T> MongoTemplate.findAndModifyWithIncludeFieldsById(id: ObjectId, update: Update, includeFields: List<String>, entityClass: Class<T>): T {
+    return this.findAndModifyWithIncludeFields(
+            Criteria("id").`is`(id),
+            update,
+            includeFields,
             entityClass
     )
 }
