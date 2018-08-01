@@ -20,7 +20,7 @@ import java.util.Date
 open class SupportMongoModel : Serializable {
     @Id
     @JsonSerialize(using = ToStringSerializer::class)
-    var id: ObjectId = ObjectId.get()
+    var id: ObjectId? = null
 
     @CreatedDate
     var createdDate: Date? = null
