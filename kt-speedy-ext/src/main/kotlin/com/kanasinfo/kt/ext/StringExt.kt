@@ -1,6 +1,7 @@
 package com.kanasinfo.kt.ext
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import java.util.Random
 import java.util.regex.Pattern
 import java.util.UUID
@@ -59,8 +60,14 @@ fun String?.isNotPresent(): Boolean {
     return !this.isPresent()
 }
 
-fun <T> String.fromJson(t: Class<T>): T {
-    return ObjectMapper().readValue(this, t)
+fun <T> String.fromJsonToObject(t: Class<T>): T {
+    return jacksonObjectMapper().readValue(this, t)
+}
+
+fun <T> String.fromJsonToList(t: Class<T>): List<T> {
+    val mapper = jacksonObjectMapper()
+    val javaType = mapper.typeFactory.constructParametricType(List::class.java, t)
+    return mapper.readValue<List<T>>(this, javaType)
 }
 
 fun String.md5(): String {

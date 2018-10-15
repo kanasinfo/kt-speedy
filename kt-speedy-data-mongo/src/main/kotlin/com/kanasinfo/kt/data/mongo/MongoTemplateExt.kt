@@ -184,6 +184,16 @@ fun <T> MongoTemplate.findOneWithIncludeFields(criteria: Criteria, includeFields
 
     return this.findOne(query, entityClass)
 }
+fun <T> MongoTemplate.findOneWithExcludeFields(criteria: Criteria, includeFields: List<String>, entityClass: Class<T>): T? {
+    val query = Query.query(criteria)
+    val field = query.fields()
+
+    includeFields.forEach {
+        field.exclude(it)
+    }
+
+    return this.findOne(query, entityClass)
+}
 
 fun String.toObjectId(): ObjectId {
     return ObjectId(this)
