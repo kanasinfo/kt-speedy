@@ -9,6 +9,7 @@ import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse
 import com.aliyuncs.profile.DefaultProfile
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.logging.Logger
 
 /**
  * 阿里云短信发送工具类
@@ -67,7 +68,6 @@ class AliyunSmsKt {
      */
     @Throws(com.aliyuncs.exceptions.ClientException::class)
     fun querySendDetails(phoneNumbers: String, bizId: String, sendDate: Date, pageSize: Long = 10L, currentPage: Long = 1L): QuerySendDetailsResponse {
-
         //组装请求对象
         val request = QuerySendDetailsRequest()
         //必填-号码
@@ -82,7 +82,11 @@ class AliyunSmsKt {
         //必填-当前页码从1开始计数
         request.currentPage = currentPage
 
-        return this.client.getAcsResponse(request)
+        val response = this.client.getAcsResponse(request)
+        if (response.code != "OK") {
+            throw SmsSendException(response.code, response.message)
+        }
+        return response
     }
 
     data class Config(
