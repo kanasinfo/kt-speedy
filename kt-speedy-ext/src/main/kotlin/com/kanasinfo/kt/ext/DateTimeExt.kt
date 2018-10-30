@@ -1,6 +1,7 @@
 package com.kanasinfo.kt.ext
 
 import org.joda.time.DateTime
+import org.joda.time.DateTimeZone
 import org.joda.time.format.DateTimeFormat
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -77,6 +78,7 @@ fun Date.format(pattern: String): String {
 }
 
 fun Date.toDateTime(): DateTime = DateTime(this)
+fun Date.toDateTime(zone: TimeZone): DateTime = DateTime(this, DateTimeZone.forTimeZone(zone))
 
 /**
  * 转换为Date
