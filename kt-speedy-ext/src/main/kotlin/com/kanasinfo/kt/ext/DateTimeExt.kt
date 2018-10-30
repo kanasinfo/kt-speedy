@@ -12,11 +12,16 @@ class DateTimeExt {
         fun parse(dateTime: String, pattern: String): DateTime {
             return DateTime.parse(dateTime, DateTimeFormat.forPattern(pattern))
         }
+
         /**
          * 今天
          */
         fun today(): Date {
             return DateTime.now().toDate()
+        }
+
+        fun todayUTC(): Date {
+            return org.joda.time.DateTime.now(org.joda.time.DateTimeZone.forTimeZone(java.util.TimeZone.getTimeZone("UTC"))).toDate()
         }
     }
 }
@@ -60,9 +65,6 @@ fun DateTime.endOfMonth(): DateTime {
 /**
  * 获取当前时间的utc时区值
  */
-fun DateTime.nowUTC(): DateTime {
-    return DateTime.now(DateTimeZone.forTimeZone(TimeZone.getTimeZone("UTC")))
-}
 
 fun Date.onlyTime(): Date {
     return DateTime(this).onlyTime().toDate()
@@ -91,13 +93,13 @@ fun Date.toDateTimeUTC(): DateTime = DateTime(this, DateTimeZone.forTimeZone(Tim
 /**
  * 转换为Date
  */
-fun java.time.LocalDate.toDate(): Date{
+fun java.time.LocalDate.toDate(): Date {
     return Date.from(this.atStartOfDay(ZoneId.systemDefault()).toInstant())
 }
 
 /**
  * 转换为Date
  */
-fun LocalDateTime.toDate(): Date{
+fun LocalDateTime.toDate(): Date {
     return Date.from(this.atZone(java.time.ZoneId.systemDefault()).toInstant())
 }
