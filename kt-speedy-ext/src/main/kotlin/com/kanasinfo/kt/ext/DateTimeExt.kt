@@ -57,6 +57,13 @@ fun DateTime.endOfMonth(): DateTime {
     return this.dayOfMonth().withMaximumValue().millisOfDay().withMaximumValue()
 }
 
+/**
+ * 获取当前时间的utc时区值
+ */
+fun DateTime.nowUTC(): DateTime {
+    return DateTime.now(DateTimeZone.forTimeZone(TimeZone.getTimeZone("UTC")))
+}
+
 fun Date.onlyTime(): Date {
     return DateTime(this).onlyTime().toDate()
 }
@@ -79,6 +86,7 @@ fun Date.format(pattern: String): String {
 
 fun Date.toDateTime(): DateTime = DateTime(this)
 fun Date.toDateTime(zone: TimeZone): DateTime = DateTime(this, DateTimeZone.forTimeZone(zone))
+fun Date.toDateTimeUTC(): DateTime = DateTime(this, DateTimeZone.forTimeZone(TimeZone.getTimeZone("UTC")))
 
 /**
  * 转换为Date
