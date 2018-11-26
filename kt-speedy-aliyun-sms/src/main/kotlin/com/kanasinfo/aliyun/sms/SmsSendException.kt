@@ -10,4 +10,5 @@ class SmsSendException: RuntimeException {
         this.msg = msg
 
     }
+
 }

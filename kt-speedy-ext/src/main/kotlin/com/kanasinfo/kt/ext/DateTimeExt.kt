@@ -3,6 +3,8 @@ package com.kanasinfo.kt.ext
 import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
 import org.joda.time.format.DateTimeFormat
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.*
@@ -83,7 +85,7 @@ fun Date.onlyDate(): Date {
 }
 
 fun Date.format(pattern: String): String {
-    return DateTime(this).toString(pattern)
+    return SimpleDateFormat(pattern).format(this)
 }
 
 fun Date.toDateTime(): DateTime = DateTime(this)
