@@ -29,11 +29,11 @@ open class SupportModel : Serializable {
 
     @Column(name = "created_by")
     @CreatedBy
-    val createdBy: String? = null
+    var createdBy: String? = null
 
     @Column(name = "last_modified_by")
     @LastModifiedBy
-    val lastModifiedBy: String? = null
+    var lastModifiedBy: String? = null
 
     override fun equals(o: Any?): Boolean {
         if (this === o) return true
