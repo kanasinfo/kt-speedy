@@ -93,6 +93,14 @@ fun String.toDateTime(pattern: String): DateTime {
     return DateTimeExt.parse(this, pattern)
 }
 
+fun String.splitChild(delimiter: String, index: Int): String? {
+    val sts = this.split(delimiter)
+    return if (sts.size > index) {
+        sts[index]
+    }else{
+        null
+    }
+}
 class StringExt {
     companion object {
         /**
