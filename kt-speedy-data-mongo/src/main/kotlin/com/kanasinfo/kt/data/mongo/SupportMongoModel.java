@@ -1,10 +1,7 @@
 package com.kanasinfo.kt.data.mongo;
 
 import org.bson.types.ObjectId;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.annotation.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.EntityListeners;
@@ -14,6 +11,7 @@ import java.util.Date;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public class SupportMongoModel {
+	@Id
 	private ObjectId id;
 	@CreatedDate
 	private Date createdDate;

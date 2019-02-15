@@ -1,6 +1,7 @@
 package com.kanasinfo.kt.ext
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import org.joda.time.DateTime
 import java.util.*
 import java.util.regex.Pattern
 
@@ -83,6 +84,13 @@ fun String.trimForce(): String {
     val p = Pattern.compile("\\s*|\t|\r|\n")
     val m = p.matcher(this)
     return m.replaceAll("")
+}
+
+fun String.toDate(pattern: String): Date{
+    return DateTimeExt.parse(this, pattern).toDate()
+}
+fun String.toDateTime(pattern: String): DateTime {
+    return DateTimeExt.parse(this, pattern)
 }
 
 class StringExt {
