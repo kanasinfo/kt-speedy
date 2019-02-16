@@ -8,6 +8,7 @@ import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import java.util.Date;
 
+@Deprecated
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public class SupportMongoModel {
