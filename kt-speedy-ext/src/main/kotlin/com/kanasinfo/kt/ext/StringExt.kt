@@ -101,6 +101,26 @@ fun String.splitChild(delimiter: String, index: Int): String? {
         null
     }
 }
+
+/**
+ * 根据传入的路径，查询json，返回json子对象，eg： {"a": {"b": 2}}.findFromJson("a.b") = 2
+ */
+fun String.findFromJson(path: String): Any? {
+    val map = this.fromJsonToObject(HashMap::class.java)
+    val paths = path.split(".")
+    if (paths.isNotEmpty()) {
+        val key = paths[0]
+        val result = map[key]
+        if (paths.size > 1 && result != null) {
+            return result.toJson().findFromJson(path.substringAfter("$key."))
+        } else if (paths.size == 1) {
+            return result
+        }
+    }
+
+    return null
+}
+
 class StringExt {
     companion object {
         /**
