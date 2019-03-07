@@ -35,13 +35,14 @@ data class UserCertificate(
     /**
      * 账号类型
      */
-    var type: Type = Type.ACCOUNT
+    @Enumerated(value = EnumType.STRING)
+    var type: Type = Type.CUSTOMIZE
 
     enum class Type {
         /**
          * 普通账号
          */
-        ACCOUNT,
+        CUSTOMIZE,
         /**
          * 邮箱账号
          */

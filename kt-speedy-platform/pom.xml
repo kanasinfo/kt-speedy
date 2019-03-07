@@ -44,6 +44,11 @@
         </dependency>
         <dependency>
             <groupId>com.kanasinfo</groupId>
+            <artifactId>kt-speedy-web</artifactId>
+            <version>2.1.19</version>
+        </dependency>
+        <dependency>
+            <groupId>com.kanasinfo</groupId>
             <artifactId>kt-speedy-ext</artifactId>
             <version>2.1.19</version>
         </dependency>

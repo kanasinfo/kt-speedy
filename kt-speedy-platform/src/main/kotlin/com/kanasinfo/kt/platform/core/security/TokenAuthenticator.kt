@@ -22,9 +22,9 @@ class TokenAuthenticator {
     val logger = LoggerFactory.getLogger(TokenAuthenticator::class.java)!!
     @Value("\${ks.platform.token-secret-key}")
     private lateinit var tokenSecretKey: String
-
+    @Value("\${ks.platform.expiration-day}")
+    private lateinit var expirationDay: String
     companion object {
-        private const val EXPIRATION_DAY = 30     // 30天
         private const val HEADER_STRING = "Authorization"
         private const val TOKEN_COOKIE_KEY = "Token"
     }
@@ -32,7 +32,7 @@ class TokenAuthenticator {
     @Autowired
     private lateinit var stringRedisTemplate: StringRedisTemplate
 
-    private fun getExpiration() = DateTime.now().plusDays(EXPIRATION_DAY).toDate()
+    private fun getExpiration() = DateTime.now().plusDays(expirationDay.toInt()).toDate()
 
     private fun createToken(authentication: Authentication, user: PlatformUser): String {
 

@@ -13,4 +13,6 @@ interface IWebSecurityConfigInject {
      */
     fun addUrlAntMatchers(urlRegistry: ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry)
 
+//    fun isSupportMut(): Boolean
+
 }

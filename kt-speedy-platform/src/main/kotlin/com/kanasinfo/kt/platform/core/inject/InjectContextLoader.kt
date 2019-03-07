@@ -13,7 +13,7 @@ import javax.annotation.PostConstruct
 class InjectContextLoader{
     private var webSecurityConfigInject: IWebSecurityConfigInject? = null
 
-    @Value("\${ks.platform.inject.security.classpath}")
+    @Value("\${ks.platform.inject.classpath}")
     private var webSecurityConfigInjectClass:String? = null
 
     @PostConstruct
