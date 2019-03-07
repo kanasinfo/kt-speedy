@@ -158,11 +158,3 @@ object KUID {
         return UUID.randomUUID().toString().replace("-", "")
     }
 }
-
-fun main(args: Array<String>) {
-    println(KUID.get())
-    println(KUID.get())
-    println(KUID.get())
-    println(KUID.get())
-    println(KUID.get())
-}

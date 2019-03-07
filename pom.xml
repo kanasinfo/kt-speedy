@@ -16,6 +16,8 @@
         <module>kt-speedy-data-mongo</module>
         <module>kt-speedy-web</module>
         <module>kt-speedy-aliyun-sms</module>
+        <module>kt-speedy-platform</module>
+        <module>kt-speedy-platform-demo</module>
     </modules>
     <packaging>pom</packaging>
 
