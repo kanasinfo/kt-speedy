@@ -93,8 +93,6 @@ class TokenAuthenticator {
                 // 得到 权限（角色）
                 val userId = claims["userId"] as String
 
-
-
                 // 返回验证令牌
                 return if (user.isPresent()) {
                     try {

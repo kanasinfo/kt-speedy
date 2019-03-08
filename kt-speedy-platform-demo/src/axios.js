@@ -6,6 +6,5 @@ let conf = {
     withCredentials: true
 };
 axios.defaults.withCredentials = true
-axios.defaults.headers.common['Authorization'] = 'sss';
 const http = axios.create(conf)
 export default http;

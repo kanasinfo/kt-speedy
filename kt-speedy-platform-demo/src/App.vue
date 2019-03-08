@@ -4,7 +4,7 @@
         用户名：<input type="text" v-model="username"/>
         密码：<input type="password" v-model="password"/>
         <button @click.prevent="login">登录</button>
-
+        <span style="color: red; margin-left: 20px;">{{loginDesc}}</span>
         <hr>
         <button @click="getData">获取授权后的数据</button>
         <div>
@@ -22,7 +22,8 @@
             return {
                 username: null,
                 password: null,
-                data: null
+                data: null,
+                loginDesc: null
             }
         },
         created(){
@@ -45,8 +46,10 @@
                     password: this.password
                 }).then(res => {
                     console.log('登录成功', res.data);
+                    this.loginDesc = '登录成功';
                     this.setToken(res.data.token)
                 }).catch(err => {
+                    this.loginDesc = '登录失败';
                 })
             }
         }

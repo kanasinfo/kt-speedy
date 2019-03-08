@@ -2,9 +2,11 @@ package com.kanasinfo.platform.core.security
 
 import cn.hutool.core.codec.Base64
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.kanasinfo.ext.fromJsonToObject
 import com.kanasinfo.ext.toJson
 import com.kanasinfo.platform.service.PlatformUserService
 import com.kanasinfo.platform.utils.RedisKey
+import org.apache.commons.io.IOUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.data.redis.core.StringRedisTemplate
@@ -47,8 +49,7 @@ class JWTLoginFilter(url: String, authManager: AuthenticationManager) : Abstract
     @Throws(AuthenticationException::class, IOException::class, ServletException::class)
     override fun attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse): Authentication? {
         return try {
-            val creds = ObjectMapper()
-                .readValue(req.inputStream, AccountCredentials::class.java)
+            val creds = IOUtils.toString(req.inputStream, Charsets.UTF_8).fromJsonToObject(AccountCredentials::class.java)
             authenticationManager.authenticate(
                 UsernamePasswordAuthenticationToken(creds.username, creds.password, Collections.emptyList())
             )
