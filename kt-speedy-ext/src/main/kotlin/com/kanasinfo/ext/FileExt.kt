@@ -1,4 +1,4 @@
-package com.kanasinfo.kt.ext
+package com.kanasinfo.ext
 
 import net.sf.jmimemagic.Magic
 import java.io.File

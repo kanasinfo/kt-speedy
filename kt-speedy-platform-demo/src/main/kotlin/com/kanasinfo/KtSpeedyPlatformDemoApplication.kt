@@ -1,4 +1,4 @@
-package com.kanasinfo.kt
+package com.kanasinfo
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

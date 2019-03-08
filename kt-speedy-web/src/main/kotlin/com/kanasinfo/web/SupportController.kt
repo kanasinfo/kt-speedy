@@ -1,4 +1,4 @@
-package com.kanasinfo.kt.web
+package com.kanasinfo.web
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

@@ -1,4 +1,4 @@
-package com.kanasinfo.kt.ext
+package com.kanasinfo.ext
 
 import java.io.UnsupportedEncodingException
 import java.security.MessageDigest

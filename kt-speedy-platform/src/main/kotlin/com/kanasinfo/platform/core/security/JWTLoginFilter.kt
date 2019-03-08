@@ -2,9 +2,9 @@ package com.kanasinfo.platform.core.security
 
 import cn.hutool.core.codec.Base64
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.kanasinfo.kt.ext.toJson
-import com.kanasinfo.kt.platform.service.PlatformUserService
-import com.kanasinfo.kt.platform.utils.RedisKey
+import com.kanasinfo.ext.toJson
+import com.kanasinfo.platform.service.PlatformUserService
+import com.kanasinfo.platform.utils.RedisKey
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.data.redis.core.StringRedisTemplate

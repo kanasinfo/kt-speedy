@@ -1,4 +1,4 @@
-package com.kanasinfo.kt.ext
+package com.kanasinfo.ext
 
 class BusinessException(val code: String, override val message: String?, var httpCode: Int? = null) : Exception() {
     companion object {

@@ -1,6 +1,6 @@
 package com.kanasinfo.platform.core.security
 
-import com.kanasinfo.kt.ext.NoArg
+import com.kanasinfo.ext.NoArg
 
 @NoArg
 data class AccountCredentials (val username: String, val password: String)

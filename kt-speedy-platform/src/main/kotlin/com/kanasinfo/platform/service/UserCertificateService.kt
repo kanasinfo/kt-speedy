@@ -1,9 +1,9 @@
 package com.kanasinfo.platform.service
 
-import com.kanasinfo.kt.data.jpa.SupportRepository
-import com.kanasinfo.kt.data.jpa.SupportService
-import com.kanasinfo.kt.platform.model.UserCertificate
-import com.kanasinfo.kt.platform.repository.UserCertificateRepository
+import com.kanasinfo.data.jpa.SupportRepository
+import com.kanasinfo.data.jpa.SupportService
+import com.kanasinfo.platform.model.UserCertificate
+import com.kanasinfo.platform.repository.UserCertificateRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional

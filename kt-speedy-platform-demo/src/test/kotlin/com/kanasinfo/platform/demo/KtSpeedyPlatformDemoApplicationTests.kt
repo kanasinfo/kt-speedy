@@ -1,4 +1,4 @@
-package com.kanasinfo.kt.platform.demo
+package com.kanasinfo.platform.demo
 
 import org.junit.Test
 import org.junit.runner.RunWith

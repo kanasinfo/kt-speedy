@@ -1,4 +1,4 @@
-package com.kanasinfo.kt.ext
+package com.kanasinfo.ext
 
 @Target(allowedTargets = [(AnnotationTarget.CLASS)])
 annotation class NoArg

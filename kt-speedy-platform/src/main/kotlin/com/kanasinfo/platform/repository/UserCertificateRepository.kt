@@ -1,7 +1,7 @@
 package com.kanasinfo.platform.repository
 
-import com.kanasinfo.kt.data.jpa.SupportRepository
-import com.kanasinfo.kt.platform.model.UserCertificate
+import com.kanasinfo.data.jpa.SupportRepository
+import com.kanasinfo.platform.model.UserCertificate
 import org.springframework.stereotype.Repository
 
 /**

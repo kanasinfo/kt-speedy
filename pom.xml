@@ -9,7 +9,7 @@
     </parent>
     <groupId>com.kanasinfo</groupId>
     <artifactId>kt-speedy</artifactId>
-    <version>2.1.19</version>
+    <version>3.0.0</version>
     <modules>
         <module>kt-speedy-data-jpa</module>
         <module>kt-speedy-ext</module>

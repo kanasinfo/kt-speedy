@@ -1,7 +1,7 @@
 package com.kanasinfo.platform.core.security
 
 import com.fasterxml.jackson.annotation.JsonIgnore
-import com.kanasinfo.kt.platform.model.PlatformUser
+import com.kanasinfo.platform.model.PlatformUser
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails

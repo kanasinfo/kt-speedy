@@ -1,4 +1,4 @@
-package com.kanasinfo.kt.ext
+package com.kanasinfo.ext
 
 fun <T> Collection<T>?.isPresent(): Boolean {
     return this != null && this.isNotEmpty()

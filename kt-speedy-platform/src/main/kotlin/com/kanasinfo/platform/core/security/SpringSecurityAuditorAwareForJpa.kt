@@ -1,6 +1,6 @@
 package com.kanasinfo.platform.core.security
 
-import com.kanasinfo.kt.platform.utils.sessionIndividualUserId
+import com.kanasinfo.platform.utils.sessionIndividualUserId
 import org.springframework.data.domain.AuditorAware
 import org.springframework.security.core.context.SecurityContextHolder
 import java.util.*

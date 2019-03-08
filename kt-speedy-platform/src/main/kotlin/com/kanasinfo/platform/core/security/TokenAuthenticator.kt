@@ -1,10 +1,10 @@
 package com.kanasinfo.platform.core.security
 
 import cn.hutool.core.codec.Base64
-import com.kanasinfo.kt.ext.fromJsonToObject
-import com.kanasinfo.kt.ext.isPresent
-import com.kanasinfo.kt.platform.model.PlatformUser
-import com.kanasinfo.kt.platform.utils.RedisKey
+import com.kanasinfo.ext.fromJsonToObject
+import com.kanasinfo.ext.isPresent
+import com.kanasinfo.platform.model.PlatformUser
+import com.kanasinfo.platform.utils.RedisKey
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import org.joda.time.DateTime

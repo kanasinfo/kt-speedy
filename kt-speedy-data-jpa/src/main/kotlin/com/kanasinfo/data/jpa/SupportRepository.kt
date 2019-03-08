@@ -1,4 +1,4 @@
-package com.kanasinfo.kt.data.jpa
+package com.kanasinfo.data.jpa
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor

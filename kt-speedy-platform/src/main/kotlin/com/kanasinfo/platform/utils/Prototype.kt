@@ -1,6 +1,6 @@
 package com.kanasinfo.platform.utils
 
-import com.kanasinfo.kt.platform.core.security.CustomerUserPrincipal
+import com.kanasinfo.platform.core.security.CustomerUserPrincipal
 import org.springframework.security.core.context.SecurityContextHolder
 
 /**

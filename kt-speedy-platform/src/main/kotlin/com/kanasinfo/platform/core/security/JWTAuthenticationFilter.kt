@@ -1,6 +1,6 @@
 package com.kanasinfo.platform.core.security
 
-import com.kanasinfo.kt.ext.toJson
+import com.kanasinfo.ext.toJson
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.filter.GenericFilterBean

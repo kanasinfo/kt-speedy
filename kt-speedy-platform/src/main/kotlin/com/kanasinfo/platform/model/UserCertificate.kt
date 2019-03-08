@@ -1,8 +1,8 @@
 package com.kanasinfo.platform.model
 
 import com.fasterxml.jackson.annotation.JsonIgnore
-import com.kanasinfo.kt.data.jpa.SupportModel
-import com.kanasinfo.kt.ext.KUID
+import com.kanasinfo.data.jpa.SupportModel
+import com.kanasinfo.ext.KUID
 import javax.persistence.*
 
 /**

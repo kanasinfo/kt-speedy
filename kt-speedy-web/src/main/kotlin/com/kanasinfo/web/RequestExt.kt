@@ -1,4 +1,4 @@
-package com.kanasinfo.kt.web
+package com.kanasinfo.web
 
 import javax.servlet.http.HttpServletRequest
 

@@ -1,4 +1,4 @@
-package com.kanasinfo.kt.web
+package com.kanasinfo.web
 
 import org.springframework.core.convert.converter.Converter
 

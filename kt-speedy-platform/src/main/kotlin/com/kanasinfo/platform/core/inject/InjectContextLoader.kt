@@ -1,6 +1,6 @@
 package com.kanasinfo.platform.core.inject
 
-import com.kanasinfo.kt.ext.isPresent
+import com.kanasinfo.ext.isPresent
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import javax.annotation.PostConstruct

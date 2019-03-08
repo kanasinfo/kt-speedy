@@ -1,6 +1,6 @@
 package com.kanasinfo.platform.core.security
 
-import com.kanasinfo.kt.platform.core.inject.InjectContextLoader
+import com.kanasinfo.platform.core.inject.InjectContextLoader
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean

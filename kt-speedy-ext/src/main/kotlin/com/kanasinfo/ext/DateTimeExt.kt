@@ -1,4 +1,4 @@
-package com.kanasinfo.kt.ext
+package com.kanasinfo.ext
 
 import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
