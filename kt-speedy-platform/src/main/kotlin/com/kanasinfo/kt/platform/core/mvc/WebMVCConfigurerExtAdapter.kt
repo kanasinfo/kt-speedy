@@ -1,4 +1,4 @@
-package com.kanasinfo.kt.platform.demo.config
+package com.kanasinfo.kt.platform.core.mvc
 
 import com.kanasinfo.kt.web.DateConverter
 import org.springframework.boot.web.server.ErrorPage
@@ -17,11 +17,11 @@ import java.util.*
 
 @Configuration
 @EnableWebMvc
-class AlpsWebMVCConfigurerExtAdapter : WebMvcConfigurer {
-//
-//    val gmtTimeZoneSetListener: GMTTimeZoneSetListener
-//        @Bean
-//        get() = GMTTimeZoneSetListener()
+class WebMVCConfigurerExtAdapter : WebMvcConfigurer {
+
+    val gmtTimeZoneSetListener: GMTTimeZoneSetListener
+        @Bean
+        get() = GMTTimeZoneSetListener()
 
     @Bean
     fun containerCustomizer(): ErrorPageRegistrar {

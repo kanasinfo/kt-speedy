@@ -4,7 +4,7 @@ import cn.hutool.core.codec.Base64
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.kanasinfo.kt.ext.toJson
 import com.kanasinfo.kt.platform.service.PlatformUserService
-import com.kanasinfo.kt.platform.utils.sessionIndividualUserId
+import com.kanasinfo.kt.platform.utils.RedisKey
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.data.redis.core.StringRedisTemplate
@@ -29,6 +29,9 @@ class JWTLoginFilter(url: String, authManager: AuthenticationManager) : Abstract
 
     @Value("\${ks.platform.expiration-day}")
     private lateinit var expirationDays: Duration
+    @Value("\${ks.platform.multi-login}")
+    private var multiLogin: Boolean? = false
+
     @Autowired
     private lateinit var tokenAuthenticator: TokenAuthenticator
     @Autowired
@@ -69,9 +72,10 @@ class JWTLoginFilter(url: String, authManager: AuthenticationManager) : Abstract
         )
         val encodedToken = Base64.encode(token)
 
-
-        stringRedisTemplate.opsForValue()
-            .set("kt_user_token_${user.id}", encodedToken, expirationDays.toDays(), TimeUnit.DAYS)
+        if (false == multiLogin) {
+            stringRedisTemplate.opsForValue()
+                .set(RedisKey.getTokenKey(user.id), encodedToken, expirationDays.toDays(), TimeUnit.DAYS)
+        }
 
         res.contentType = "application/json"
         res.characterEncoding = "UTF-8"

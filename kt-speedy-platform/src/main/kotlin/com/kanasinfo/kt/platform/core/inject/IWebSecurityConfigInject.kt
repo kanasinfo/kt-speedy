@@ -13,6 +13,9 @@ interface IWebSecurityConfigInject {
      */
     fun addUrlAntMatchers(urlRegistry: ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry)
 
+    /**
+     * 是否为标准时区
+     */
 //    fun isSupportMut(): Boolean
 
 }

@@ -4,6 +4,7 @@ import cn.hutool.core.codec.Base64
 import com.kanasinfo.kt.ext.fromJsonToObject
 import com.kanasinfo.kt.ext.isPresent
 import com.kanasinfo.kt.platform.model.PlatformUser
+import com.kanasinfo.kt.platform.utils.RedisKey
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import org.joda.time.DateTime
@@ -15,6 +16,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Component
 import org.springframework.web.util.WebUtils
+import java.time.Duration
 import javax.servlet.http.HttpServletRequest
 
 @Component
@@ -23,7 +25,9 @@ class TokenAuthenticator {
     @Value("\${ks.platform.token-secret-key}")
     private lateinit var tokenSecretKey: String
     @Value("\${ks.platform.expiration-day}")
-    private lateinit var expirationDay: String
+    private lateinit var expirationDay: Duration
+    @Value("\${ks.platform.multi-login}")
+    private var multiLogin: Boolean? = false
     companion object {
         private const val HEADER_STRING = "Authorization"
         private const val TOKEN_COOKIE_KEY = "Token"
@@ -32,7 +36,7 @@ class TokenAuthenticator {
     @Autowired
     private lateinit var stringRedisTemplate: StringRedisTemplate
 
-    private fun getExpiration() = DateTime.now().plusDays(expirationDay.toInt()).toDate()
+    private fun getExpiration() = DateTime.now().plusDays(expirationDay.toDays().toInt()).toDate()
 
     private fun createToken(authentication: Authentication, user: PlatformUser): String {
 
@@ -72,15 +76,16 @@ class TokenAuthenticator {
             }
         }
         logger.debug("token: $token")
+
         try {
             if (token.isPresent()) {
-
+                token = token.replace("Bearer", "")
                 // 解析 Token
                 val claims = Jwts.parser()
                     // 验签
                     .setSigningKey(tokenSecretKey.toByteArray(Charsets.UTF_8))
                     // 去掉 Bearer
-                    .parseClaimsJws(Base64.decodeStr(token.replace("Bearer", "")))
+                    .parseClaimsJws(Base64.decodeStr(token))
                     .body
 
                 // 拿用户名
@@ -88,9 +93,17 @@ class TokenAuthenticator {
                 // 得到 权限（角色）
                 val userId = claims["userId"] as String
 
+
+
                 // 返回验证令牌
                 return if (user.isPresent()) {
                     try {
+                        if (false == multiLogin) {
+                            val dbToken = stringRedisTemplate.opsForValue().get(RedisKey.getTokenKey(userId))
+                            if (token != dbToken) {
+                                return null
+                            }
+                        }
                         UsernamePasswordAuthenticationToken(CustomerUserPrincipal(userId, request), null, null)
                     } catch (e: Exception) {
                         logger.debug(e.message, e)
@@ -101,7 +114,7 @@ class TokenAuthenticator {
                 }
             }
         } catch (e: Exception) {
-            logger.debug(e.message)
+            logger.debug(e.message, e)
             return null
         }
         return null

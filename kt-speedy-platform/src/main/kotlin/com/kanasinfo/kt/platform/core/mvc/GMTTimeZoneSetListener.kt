@@ -1,6 +1,7 @@
-package com.kanasinfo.kt.platform.demo.config
+package com.kanasinfo.kt.platform.core.mvc
 
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Value
 import java.util.*
 import javax.servlet.ServletContextEvent
 import javax.servlet.ServletContextListener
@@ -11,9 +12,14 @@ import javax.servlet.ServletContextListener
  */
 class GMTTimeZoneSetListener : ServletContextListener {
 
+    @Value("\${ks.platform.timezone.utc}")
+    private var utcEnable: Boolean = false
+
     override fun contextInitialized(sce: ServletContextEvent) {
         logger.info("set defalut timezone: GMT")
-        TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
+        if(utcEnable) {
+            TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
+        }
     }
 
     override fun contextDestroyed(sce: ServletContextEvent) {
