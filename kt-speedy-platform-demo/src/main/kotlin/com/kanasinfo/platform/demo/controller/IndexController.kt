@@ -2,6 +2,7 @@ package com.kanasinfo.platform.demo.controller
 
 import com.kanasinfo.platform.model.PlatformUser
 import com.kanasinfo.platform.model.UserCertificate
+import com.kanasinfo.platform.service.HolderService
 import com.kanasinfo.platform.service.PlatformUserService
 import com.kanasinfo.platform.service.UserCertificateService
 import org.springframework.beans.factory.annotation.Autowired
@@ -19,9 +20,8 @@ class IndexController {
     @Autowired
     private lateinit var platformUserService: PlatformUserService
     @Autowired
-    private lateinit var userCertificateService: UserCertificateService
-    @Autowired
-    private lateinit var passwordEncoder: PasswordEncoder
+    private lateinit var holderService: HolderService
+
     @GetMapping
     fun index() = "get index"
 
@@ -29,19 +29,13 @@ class IndexController {
     fun hello() = "hello world"
 
     @GetMapping("/init")
-    fun initUser(): PlatformUser{
-        var platformUser = PlatformUser()
-        platformUser.password = passwordEncoder.encode("123456")
-        platformUser = platformUserService.save(platformUser)
-
-        val userCertificate = UserCertificate(loginName = "admin")
-        userCertificate.platformUser = platformUser
-        userCertificateService.save(userCertificate)
-        return platformUser
+    fun initUser(): PlatformUser {
+        SecurityContextHolder.getContext().authentication.principal
+        return platformUserService.createPlatformUser("admin", "admin", holderService.findFirst().id)
     }
 
     @GetMapping("/data")
     fun getData(): Any? {
-        return SecurityContextHolder.getContext().authentication.principal
+        return platformUserService.findAll()
     }
 }

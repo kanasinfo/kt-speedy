@@ -29,7 +29,7 @@ class TokenAuthenticator {
     @Value("\${ks.platform.multi-login}")
     private var multiLogin: Boolean? = false
     companion object {
-        private const val HEADER_STRING = "Authorization"
+        private const val HEADER_AUTHORIZATION = "Authorization"
         private const val TOKEN_COOKIE_KEY = "Token"
     }
 
@@ -55,10 +55,7 @@ class TokenAuthenticator {
     /**
      * 创建登录令牌
      */
-    fun createAuthentication(
-        authentication: Authentication,
-        user: PlatformUser
-    ): String {
+    fun createAuthentication(authentication: Authentication, user: PlatformUser): String {
         return createToken(authentication, user)
     }
 
@@ -67,7 +64,7 @@ class TokenAuthenticator {
      */
     fun getAuthentication(request: HttpServletRequest): Authentication? {
         // 从Header中拿到token
-        var token = request.getHeader(HEADER_STRING)
+        var token = request.getHeader(HEADER_AUTHORIZATION)
         if (token == null) {
             val cookie = WebUtils.getCookie(request, TOKEN_COOKIE_KEY)
             if (cookie != null) {
@@ -76,7 +73,6 @@ class TokenAuthenticator {
             }
         }
         logger.debug("token: $token")
-
         try {
             if (token.isPresent()) {
                 token = token.replace("Bearer", "")

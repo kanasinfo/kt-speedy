@@ -1,5 +1,7 @@
 package com.kanasinfo.platform.core.mvc
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.SerializationFeature
 import com.kanasinfo.web.DateConverter
 import org.springframework.boot.web.server.ErrorPage
 import org.springframework.boot.web.server.ErrorPageRegistrar
@@ -13,10 +15,18 @@ import org.springframework.web.servlet.config.annotation.*
 import org.springframework.web.servlet.i18n.CookieLocaleResolver
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor
 import java.util.*
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
+import org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter
+import org.springframework.http.converter.xml.SourceHttpMessageConverter
+import org.springframework.http.converter.ResourceHttpMessageConverter
+import org.springframework.http.converter.ByteArrayHttpMessageConverter
+import org.springframework.http.converter.StringHttpMessageConverter
+import org.springframework.http.converter.HttpMessageConverter
+
+
 
 
 @Configuration
-@EnableWebMvc
 class WebMVCConfigurerExtAdapter : WebMvcConfigurer {
 
     val gmtTimeZoneSetListener: GMTTimeZoneSetListener

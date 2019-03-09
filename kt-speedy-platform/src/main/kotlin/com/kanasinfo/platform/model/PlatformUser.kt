@@ -1,11 +1,9 @@
 package com.kanasinfo.platform.model
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.kanasinfo.data.jpa.SupportModel
 import com.kanasinfo.ext.KUID
-import javax.persistence.Entity
-import javax.persistence.Id
-import javax.persistence.Table
-import javax.persistence.Transient
+import javax.persistence.*
 
 /**
  * 平台用户
@@ -13,11 +11,13 @@ import javax.persistence.Transient
  * @createdAt 2019-03-06 13:48
  **/
 @Entity
-@Table(name = "kt_platform_user")
+@Table(name = "base_platform_user")
 data class PlatformUser(
     @Id
+    @Column(length = 19)
     val id: String = KUID.get()
 ) : SupportModel() {
+    @JsonIgnore
     lateinit var password: String
 
     /**

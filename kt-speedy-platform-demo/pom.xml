@@ -5,7 +5,7 @@
     <parent>
         <artifactId>kt-speedy</artifactId>
         <groupId>com.kanasinfo</groupId>
-        <version>3.0.2</version>
+        <version>3.0.4</version>
     </parent>
     <artifactId>kt-speedy-platform-demo</artifactId>
     <packaging>jar</packaging>
@@ -47,11 +47,10 @@
         </profile>
     </profiles>
     <dependencies>
-
         <dependency>
             <groupId>com.kanasinfo</groupId>
             <artifactId>kt-speedy-platform</artifactId>
-            <version>3.0.2</version>
+            <version>3.0.4</version>
         </dependency>
 
         <dependency>

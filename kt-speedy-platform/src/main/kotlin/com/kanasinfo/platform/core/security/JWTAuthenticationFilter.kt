@@ -4,6 +4,7 @@ import com.kanasinfo.ext.toJson
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.filter.GenericFilterBean
+import org.springframework.web.util.WebUtils
 import java.io.IOException
 import javax.servlet.FilterChain
 import javax.servlet.ServletException
@@ -23,7 +24,10 @@ class JWTAuthenticationFilter : GenericFilterBean() {
             SecurityContextHolder.getContext().authentication = authentication
             filterChain.doFilter(request, response)
         } catch (e: Exception) {
-            response.writer.print(e.toJson())
+            e.printStackTrace()
+            response.contentType = "application/json"
+            response.characterEncoding = "UTF-8"
+            response.writer.write(e.toJson())
         }
     }
 }

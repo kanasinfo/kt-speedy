@@ -49,6 +49,14 @@ abstract class SupportService<T, ID : Serializable> {
         return repository.findAll(pageable)
     }
 
+    fun findFirstOrNull(): T? {
+        return repository.findAll().firstOrNull()
+    }
+
+    fun findFirst(): T {
+        return repository.findAll().first()
+    }
+
     @Transactional
     open fun deleteById(id: ID) {
         repository.deleteById(id)
@@ -57,5 +65,9 @@ abstract class SupportService<T, ID : Serializable> {
     @Transactional
     open fun delete(entity: T) {
         repository.delete(entity)
+    }
+
+    fun count(): Long {
+        return repository.count()
     }
 }

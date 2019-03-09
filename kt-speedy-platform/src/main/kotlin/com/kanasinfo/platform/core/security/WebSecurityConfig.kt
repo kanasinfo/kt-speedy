@@ -1,11 +1,10 @@
 package com.kanasinfo.platform.core.security
 
-import com.kanasinfo.platform.core.inject.InjectContextLoader
+import com.kanasinfo.platform.core.inject.IWebSecurityConfigInject
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.core.io.ClassPathResource
 import org.springframework.data.domain.AuditorAware
 import org.springframework.http.HttpMethod
 import org.springframework.security.access.PermissionEvaluator
@@ -31,9 +30,8 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
 
     @Autowired
     private lateinit var customUserDetailsService: CustomUserDetailsService
-    @Autowired
-    private lateinit var injectContextLoader: InjectContextLoader
-
+    @Autowired(required = false)
+    private var webSecurityConfigInject: IWebSecurityConfigInject? = null
     @Value("\${spring.mvc.servlet.path}")
     private var servletPath: String? = null
 
@@ -62,7 +60,7 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
                 .authorizeRequests()
             .antMatchers(HttpMethod.OPTIONS)
             .permitAll()
-        injectContextLoader.getWebSecurityConfigInject()?.addUrlAntMatchers(urlRegistry)
+        webSecurityConfigInject?.addUrlAntMatchers(urlRegistry)
         urlRegistry.antMatchers("${getServletPath()}/webjars/**").permitAll()         // 允许
                     .antMatchers("${getServletPath()}/resources/**").permitAll()         // 允许
                     .antMatchers("${getServletPath()}/loginfail").permitAll()          // 允许

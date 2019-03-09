@@ -14,7 +14,6 @@ class CustomerUserPrincipal : UserDetails {
         this.userId = user.id
     }
 
-
     constructor(userId: String, request: HttpServletRequest) {
         this.userId = userId
         this.request = request
