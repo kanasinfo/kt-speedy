@@ -35,10 +35,12 @@ class PlatformUserService : SupportService<PlatformUser, String>() {
      * 创建用户
      */
     @Transactional
-    fun createPlatformUser(loginName: String, password: String, holderId: String, type: UserCertificate.Type = UserCertificate.Type.CUSTOMIZE): PlatformUser {
+    fun createPlatformUser(loginName: String, password: String, holderId: String? = null, type: UserCertificate.Type = UserCertificate.Type.CUSTOMIZE): PlatformUser {
         val platformUser = create(password)
         platformUser.userCertificate = userCertificateService.createUserCertificate(platformUser, loginName, type)
-        holderProfileService.createHolderProfile(platformUser, holderId)
+        holderId?.let {
+            holderProfileService.createHolderProfile(platformUser, it)
+        }
         return platformUser
     }
 

@@ -2,8 +2,7 @@
 <configuration>
     <!-- log root path -->
     <property name="LOG_ROOT" value="logs" />
-    <property name="LOG_FILE_NAME" value="kt-speedy-demo" />
-    <property name="OPERATION_LOG_FILE_NAME" value="operation_log" />
+    <property name="LOG_FILE_NAME" value="app" />
     <!-- keep 30 days' worth of history -->
     <property name="MAX_HISTORY" value="30" />
     <property name="CONSOLE_LOG_PATTERN" value="${CONSOLE_LOG_PATTERN:-%clr([%d{yyyy-MM-dd HH:mm:ss.SSS}]){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
@@ -23,20 +22,6 @@
             <Pattern>${FILE_LOG_PATTERN}</Pattern>
         </encoder>
     </appender>
-    <!-- 用户操作日志 -->
-    <appender name="operationLogAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>${LOG_ROOT}/${OPERATION_LOG_FILE_NAME}.log</File>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!-- daily rollover -->
-            <FileNamePattern>${LOG_ROOT}/${OPERATION_LOG_FILE_NAME}.%d{yyyy-MM-dd}.log</FileNamePattern>
-            <maxHistory>${MAX_HISTORY}</maxHistory>
-        </rollingPolicy>
-        <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
-    </appender>
-
-    <logger name="com.ghighcon.commute.core.aspect.OperationLogAspect" level="DEBUG" additivity="false">
-        <appender-ref ref="operationLogAppender"/>
-    </logger>
 
     <!-- 测试环境+开发环境. 多个使用逗号隔开. -->
     <springProfile name="test,dev,local,dong">
@@ -56,8 +41,8 @@
         </root>
         <logger name="org.springframework.web" level="DEBUG"/>
         <logger name="org.springframework.security" level="DEBUG"/>
-        <logger name="com.ghighcon" level="DEBUG"/>
         <logger name="org.hibernate" level="DEBUG" />
+        <logger name="com.kanasinfo" level="INFO"/>
     </springProfile>
 
 
