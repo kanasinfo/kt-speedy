@@ -100,15 +100,14 @@ class TokenAuthenticator {
         if (token == null) {
             val cookie = WebUtils.getCookie(request, TOKEN_COOKIE_KEY)
             if (cookie != null) {
-                token = String(Base64.decodeBase64(cookie.value))
+                token = cookie.value
             }
-        } else {
-            token = String(Base64.decodeBase64(token))
         }
         logger.debug("token: $token")
         try {
             if (token.isPresent()) {
                 token = token.replace("Bearer", "")
+                token = String(Base64.decodeBase64(token))
 
                 val algorithm = Algorithm.RSA256(publicKey, privateKey)
                 val verifier = JWT.require(algorithm)
