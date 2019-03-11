@@ -21,6 +21,6 @@ class WebSecurityInject: IWebSecurityConfigInject {
     override fun addUrlAntMatchers(urlRegistry: ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry) {
         urlRegistry.antMatchers("/api/hello").permitAll()
         urlRegistry.antMatchers("/api/init").permitAll()
-        urlRegistry.antMatchers("/api/data").permitAll()
+//        urlRegistry.antMatchers("/api/data").permitAll()
     }
 }

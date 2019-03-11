@@ -24,11 +24,11 @@ open class SupportModel : Serializable {
     @Column(name = "last_modified_date")
     var lastModifiedDate: Date? = null
 
-    @Column(name = "created_by")
+    @Column(name = "created_by", length = 127)
     @CreatedBy
     var createdBy: String? = null
 
-    @Column(name = "last_modified_by")
+    @Column(name = "last_modified_by", length = 127)
     @LastModifiedBy
     var lastModifiedBy: String? = null
 

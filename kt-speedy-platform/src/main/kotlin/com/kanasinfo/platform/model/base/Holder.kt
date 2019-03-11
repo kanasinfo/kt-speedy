@@ -17,7 +17,7 @@ data class Holder(
     @Id
     @Column(length = 19)
     val id: String = KUID.get(),
-    @Column(length = 20)
+    @Column(length = 200)
     var name: String
 ) : SupportModel() {
 }
