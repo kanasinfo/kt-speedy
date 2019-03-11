@@ -24,6 +24,7 @@ import java.security.PublicKey
 import java.security.interfaces.RSAPrivateKey
 import java.security.interfaces.RSAPublicKey
 import java.time.Duration
+import javax.annotation.PostConstruct
 import javax.servlet.http.HttpServletRequest
 
 
@@ -39,10 +40,19 @@ class TokenAuthenticator {
     @Value("\${ks.platform.multi-login}")
     private var multiLogin: Boolean? = false
 
+    private lateinit var publicKey: RSAPublicKey
+    private lateinit var privateKey: RSAPrivateKey
+
     companion object {
         private const val HEADER_AUTHORIZATION = "Authorization"
         private const val TOKEN_COOKIE_KEY = "Token"
         private const val TOKEN_ISSUER = "ks platform"
+    }
+
+    @PostConstruct
+    fun initTokenKey(){
+        this.publicKey = getPublicKey() as RSAPublicKey
+        this.privateKey = getPrivateKey() as RSAPrivateKey
     }
 
     @Autowired
@@ -51,7 +61,7 @@ class TokenAuthenticator {
     private fun getExpiration() = DateTime.now().plusDays(expirationDay.toDays().toInt()).toDate()
     private fun createToken(authentication: Authentication, user: PlatformUser): String {
 
-        val algorithm = Algorithm.RSA256(getPublicKey() as RSAPublicKey, getPrivateKey() as RSAPrivateKey)
+        val algorithm = Algorithm.RSA256(publicKey, privateKey)
         return JWT.create()
             // 保护权限角色
             .withSubject(authentication.name)
@@ -100,7 +110,7 @@ class TokenAuthenticator {
             if (token.isPresent()) {
                 token = token.replace("Bearer", "")
 
-                val algorithm = Algorithm.RSA256(getPublicKey() as RSAPublicKey, getPrivateKey() as RSAPrivateKey)
+                val algorithm = Algorithm.RSA256(publicKey, privateKey)
                 val verifier = JWT.require(algorithm)
                     .withIssuer(TOKEN_ISSUER)
                     .build()
@@ -116,7 +126,10 @@ class TokenAuthenticator {
                         if (false == multiLogin) {
                             val dbToken = stringRedisTemplate.opsForValue().get(RedisKey.getTokenKey(userId))
                             if (token != dbToken) {
-                                logger.debug("token is not match from redis", Exception("token is not match from redis"))
+                                logger.debug(
+                                    "token is not match from redis",
+                                    Exception("token is not match from redis")
+                                )
                                 return null
                             }
                         }
