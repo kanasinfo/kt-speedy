@@ -117,7 +117,7 @@ class TokenAuthenticator {
 
 
                 // 拿用户名
-                val user = jwt.subject
+                val loginName = jwt.subject
                 // 得到 权限（角色）
                 jwt.claims["userId"]?.asString()?.let { userId ->
                     // 返回验证令牌
@@ -132,7 +132,7 @@ class TokenAuthenticator {
                                 return null
                             }
                         }
-                        UsernamePasswordAuthenticationToken(CustomerUserPrincipal(userId, request), null, null)
+                        UsernamePasswordAuthenticationToken(CustomerUserPrincipal(userId, loginName, request), null, null)
                     } catch (e: Exception) {
                         logger.debug(e.message, e)
                         return null

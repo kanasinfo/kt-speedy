@@ -14,9 +14,10 @@ class CustomerUserPrincipal : UserDetails {
         this.userId = user.id
     }
 
-    constructor(userId: String, request: HttpServletRequest) {
+    constructor(userId: String, loginName: String, request: HttpServletRequest) {
         this.userId = userId
         this.request = request
+        this.loginName = loginName
     }
 
     constructor(user: PlatformUser, userId: String) {
@@ -26,6 +27,7 @@ class CustomerUserPrincipal : UserDetails {
 
     var user: PlatformUser? = null
     var userId: String
+    var loginName: String? = null
     var access: MutableList<String> = mutableListOf()
     @JsonIgnore
     var request: HttpServletRequest? = null
