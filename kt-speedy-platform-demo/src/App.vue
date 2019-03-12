@@ -36,7 +36,7 @@
                 axios.defaults.headers.common['Authorization'] = token;
             },
             getData(){
-                axios.get('/api/data').then(res => {
+                axios.get('/api/pt/userinfo').then(res => {
                     this.data = res.data
                 })
             },
