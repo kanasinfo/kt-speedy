@@ -2,6 +2,8 @@ package com.kanasinfo.platform.service
 
 import com.kanasinfo.data.jpa.SupportRepository
 import com.kanasinfo.data.jpa.SupportService
+import com.kanasinfo.platform.exception.BusinessException
+import com.kanasinfo.platform.exception.UserException
 import com.kanasinfo.platform.model.PlatformUser
 import com.kanasinfo.platform.model.UserCertificate
 import com.kanasinfo.platform.repository.PlatformUserRepository
@@ -35,7 +37,12 @@ class PlatformUserService : SupportService<PlatformUser, String>() {
      * 创建用户
      */
     @Transactional
-    fun createPlatformUser(loginName: String, password: String, holderId: String? = null, type: UserCertificate.Type = UserCertificate.Type.CUSTOMIZE): PlatformUser {
+    fun createPlatformUser(
+        loginName: String,
+        password: String,
+        holderId: String? = null,
+        type: UserCertificate.Type = UserCertificate.Type.CUSTOMIZE
+    ): PlatformUser {
         val platformUser = create(password)
         platformUser.userCertificate = userCertificateService.createUserCertificate(platformUser, loginName, type)
         holderId?.let {
@@ -54,6 +61,26 @@ class PlatformUserService : SupportService<PlatformUser, String>() {
 
     fun findUserCertificateByAccount(username: String): UserCertificate? {
         return userCertificateService.findByLoginName(username)
+    }
+
+    @Throws(BusinessException::class)
+    @Transactional
+    fun changePassword(
+        userId: String,
+        oldPassword: String,
+        password: String,
+        confirmPassword: String
+    ) {
+        val user = getOne(userId) ?: throw UserException.USER_NOT_FOUND_EXCEPTION
+        if (passwordEncoder.matches(oldPassword, user.password)) {
+            if (password != confirmPassword) {
+                throw UserException.USER_PASSWORD_MISMATCH_EXCEPTION
+            }
+            user.password = passwordEncoder.encode(password)
+            save(user)
+        } else {
+            throw UserException.USER_VERIFICATION_FAILED_EXCEPTION
+        }
     }
 
 }
