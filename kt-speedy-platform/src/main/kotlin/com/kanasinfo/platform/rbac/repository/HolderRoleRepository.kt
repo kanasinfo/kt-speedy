@@ -5,5 +5,5 @@ import com.kanasinfo.platform.rbac.model.HolderRole
 import org.springframework.stereotype.Repository
 
 @Repository
-interface SysRoleRepository : SupportRepository<HolderRole, String> {
+interface HolderRoleRepository : SupportRepository<HolderRole, String> {
 }

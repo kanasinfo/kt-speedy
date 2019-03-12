@@ -3,8 +3,8 @@ package com.kanasinfo.platform.rbac.service
 import com.kanasinfo.data.jpa.SupportRepository
 import com.kanasinfo.data.jpa.SupportService
 import com.kanasinfo.platform.rbac.context.FunctionContext
-import com.kanasinfo.platform.rbac.feo.request.SysRoleRequest
-import com.kanasinfo.platform.rbac.model.HolderPermission
+import com.kanasinfo.platform.rbac.feo.request.HolderRoleRequest
+import com.kanasinfo.platform.rbac.model.HolderRolePermission
 import com.kanasinfo.platform.rbac.model.HolderRole
 import com.kanasinfo.platform.rbac.repository.HolderRoleRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -13,11 +13,11 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 @Transactional(readOnly = true)
-class SysRoleService : SupportService<HolderRole, String>() {
+class HolderRoleService : SupportService<HolderRole, String>() {
     @Autowired
     private lateinit var holderRoleRepository: HolderRoleRepository
     @Autowired
-    private lateinit var holderPermissionService: HolderPermissionService
+    private lateinit var holderRolePermissionService: HolderRolePermissionService
     @Autowired
     private lateinit var functionContext: FunctionContext
 
@@ -27,7 +27,7 @@ class SysRoleService : SupportService<HolderRole, String>() {
         get() = holderRoleRepository
 
     @Transactional
-    fun editRole(roleRequest: SysRoleRequest): HolderRole {
+    fun editRole(roleRequest: HolderRoleRequest): HolderRole {
         val role = if (roleRequest.id != null) {
             getOne(roleRequest.id) ?: HolderRole()
         } else {
@@ -42,13 +42,15 @@ class SysRoleService : SupportService<HolderRole, String>() {
         val roleOptional = findById(roleId)
         if (roleOptional.isPresent) {
             val role = roleOptional.get()
-            holderPermissionService.removeByRole(role)
-            val permissions = mutableListOf<HolderPermission>()
+            holderRolePermissionService.removeByRole(role)
+            val permissions = mutableListOf<HolderRolePermission>()
             functions.forEach {
-                val permission = HolderPermission(it, role)
+                val permission = HolderRolePermission()
+                permission.code = it
+                permission.role = role
                 permissions.add(permission)
             }
-            role.permissions = permissions
+            role.rolePermissions = permissions
             return save(role)
         }
         return null
@@ -60,9 +62,9 @@ class SysRoleService : SupportService<HolderRole, String>() {
         if (role == null) {
             role = HolderRole()
             role.name = adminDefaultName
-            val permissions = mutableListOf<HolderPermission>()
+            val permissions = mutableListOf<HolderRolePermission>()
             functionContext.mapAllFunctionToPermission(permissions, functionContext.getFunctions(), role)
-            role.permissions = permissions
+            role.rolePermissions = permissions
             save(role)
         }
         return role

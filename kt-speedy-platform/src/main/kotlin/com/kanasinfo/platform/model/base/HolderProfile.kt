@@ -3,7 +3,10 @@ package com.kanasinfo.platform.model.base
 import com.kanasinfo.data.jpa.SupportModel
 import com.kanasinfo.ext.KUID
 import com.kanasinfo.platform.model.PlatformUser
+import com.kanasinfo.platform.rbac.model.HolderRole
 import javax.persistence.*
+import java.util.HashSet
+
 
 /**
  * 租户用户对应表
@@ -27,4 +30,12 @@ data class HolderProfile(
 
     @Column(length = 100)
     var nickname: String? = null
+
+    @JoinTable(
+        name = "holder_profile_role",
+        joinColumns = [JoinColumn(name = "profile_id")],
+        inverseJoinColumns = [JoinColumn(name = "role_id")]
+    )
+    @ManyToMany(fetch = FetchType.LAZY, cascade = [CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH])
+    val roles: Set<HolderRole> = HashSet()
 }

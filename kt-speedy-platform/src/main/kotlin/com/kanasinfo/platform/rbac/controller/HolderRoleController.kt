@@ -1,6 +1,6 @@
 package com.kanasinfo.platform.rbac.controller
 
-import com.kanasinfo.platform.rbac.feo.request.SysRoleRequest
+import com.kanasinfo.platform.rbac.feo.request.HolderRoleRequest
 import com.kanasinfo.platform.rbac.model.HolderRole
 import com.kanasinfo.platform.rbac.service.HolderRoleService
 import com.kanasinfo.web.EmptyJsonResponse
@@ -9,8 +9,8 @@ import org.springframework.data.domain.Sort
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/ksys/roles")
-class SysRoleController {
+@RequestMapping("/holder/roles")
+class HolderRoleController {
     @Autowired
     private lateinit var holderRoleService: HolderRoleService
 
@@ -20,7 +20,7 @@ class SysRoleController {
     }
 
     @PostMapping
-    fun editRole(@RequestBody roleRequest: SysRoleRequest): HolderRole {
+    fun editRole(@RequestBody roleRequest: HolderRoleRequest): HolderRole {
         return holderRoleService.editRole(roleRequest)
     }
 

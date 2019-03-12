@@ -1,6 +1,7 @@
-package com.kanasinfo.alps.boss.config
+package com.kanasinfo.platform.rbac.context
 
-import com.kanasinfo.kt.ext.NoArg
+import com.kanasinfo.ext.NoArg
+
 
 @NoArg
 data class Function(

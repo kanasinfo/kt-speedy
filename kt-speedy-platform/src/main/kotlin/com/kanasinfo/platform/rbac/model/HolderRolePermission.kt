@@ -1,30 +1,25 @@
 package com.kanasinfo.platform.rbac.model
 
+import com.kanasinfo.ext.KUID
 import com.kanasinfo.platform.model.base.HolderSupportModel
 import org.springframework.security.core.GrantedAuthority
 import javax.persistence.*
 
 @Entity
-@Table(name = "holder_permission")
-class HolderPermission  : GrantedAuthority, HolderSupportModel {
+@Table(name = "holder_role_permission")
+data class HolderRolePermission(
+    @Id
+    @Column(length = 19)
+    val id: String = KUID.get()
+) : GrantedAuthority, HolderSupportModel() {
     lateinit var code: String
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH])
     @JoinColumn(
-            name = "role_id",
-            referencedColumnName = "id"
+        name = "role_id",
+        referencedColumnName = "id"
     )
     lateinit var role: HolderRole
-
-
-
-    constructor(code: String, role: HolderRole) : super() {
-        this.code = code
-        this.role = role
-    }
-
-    constructor() : super()
-
     override fun getAuthority(): String {
         return code
     }

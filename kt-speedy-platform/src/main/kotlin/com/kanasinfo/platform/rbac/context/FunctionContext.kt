@@ -1,11 +1,12 @@
-package com.ghighcon.commute.core.config
+package com.kanasinfo.platform.rbac.context
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import com.ghighcon.commute.master.model.SysPermission
-import com.ghighcon.commute.master.model.SysRole
-import com.kanasinfo.alps.boss.config.Function
-import com.kanasinfo.kt.ext.isPresent
+import com.kanasinfo.ext.isPresent
+import com.kanasinfo.platform.rbac.model.HolderRolePermission
+import com.kanasinfo.platform.rbac.model.HolderRole
+import com.kanasinfo.web.SpringContextKit
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import javax.annotation.PostConstruct
@@ -15,18 +16,29 @@ class FunctionContext {
     @Autowired
     private lateinit var springContextKit: SpringContextKit
     private lateinit var functions: ArrayList<Function>
+    private val logger = LoggerFactory.getLogger(FunctionContext::class.java)
 
     @PostConstruct
     fun initFunctions() {
         val resource = springContextKit.getApplicationContext().getResource("classpath:access.json")
-        functions = jacksonObjectMapper().readValue(resource.inputStream)
+        if (resource.exists()) {
+            functions = jacksonObjectMapper().readValue(resource.inputStream)
+        } else {
+            logger.debug("access.json not exists")
+        }
     }
 
     fun getFunctions() = functions
 
-    fun mapAllFunctionToPermission(permissions: MutableList<SysPermission>, functions: List<Function>, role: SysRole) {
+    fun mapAllFunctionToPermission(
+        permissions: MutableList<HolderRolePermission>,
+        functions: List<Function>,
+        role: HolderRole
+    ) {
         functions.forEach {
-            val permission = SysPermission(it.name, role)
+            val permission = HolderRolePermission()
+            permission.role = role
+            permission.code = it.name
             permissions.add(permission)
             if (it.children.isPresent()) {
                 mapAllFunctionToPermission(permissions, it.children!!, role)
