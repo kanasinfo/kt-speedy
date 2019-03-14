@@ -1,8 +1,8 @@
 package com.kanasinfo.platform.demo.controller
 
-import com.kanasinfo.platform.model.PlatformUser
-import com.kanasinfo.platform.service.HolderService
-import com.kanasinfo.platform.service.PlatformUserService
+import com.kanasinfo.platform.base.model.PlatformUser
+import com.kanasinfo.platform.base.service.HolderService
+import com.kanasinfo.platform.base.service.PlatformUserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.GetMapping

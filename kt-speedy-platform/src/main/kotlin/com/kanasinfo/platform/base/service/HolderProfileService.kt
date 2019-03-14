@@ -1,11 +1,11 @@
-package com.kanasinfo.platform.service
+package com.kanasinfo.platform.base.service
 
 import com.kanasinfo.data.jpa.SupportRepository
 import com.kanasinfo.data.jpa.SupportService
 import com.kanasinfo.platform.exception.HolderException
-import com.kanasinfo.platform.model.PlatformUser
-import com.kanasinfo.platform.model.base.HolderProfile
-import com.kanasinfo.platform.repository.HolderProfileRepository
+import com.kanasinfo.platform.base.model.PlatformUser
+import com.kanasinfo.platform.base.model.holder.HolderProfile
+import com.kanasinfo.platform.base.repository.HolderProfileRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional

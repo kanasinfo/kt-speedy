@@ -1,9 +1,7 @@
-package com.kanasinfo.platform.repository
+package com.kanasinfo.platform.base.repository
 
 import com.kanasinfo.data.jpa.SupportRepository
-import com.kanasinfo.platform.model.PlatformUser
-import com.kanasinfo.platform.model.base.Holder
-import com.kanasinfo.platform.model.base.HolderProfile
+import com.kanasinfo.platform.base.model.holder.HolderProfile
 import org.springframework.stereotype.Repository
 
 /**

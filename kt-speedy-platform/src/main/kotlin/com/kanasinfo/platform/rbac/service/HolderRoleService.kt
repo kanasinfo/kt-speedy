@@ -2,12 +2,14 @@ package com.kanasinfo.platform.rbac.service
 
 import com.kanasinfo.data.jpa.SupportRepository
 import com.kanasinfo.data.jpa.SupportService
-import com.kanasinfo.platform.rbac.context.FunctionContext
+import com.kanasinfo.platform.core.runnner.FunctionRunner
 import com.kanasinfo.platform.rbac.feo.request.HolderRoleRequest
 import com.kanasinfo.platform.rbac.model.HolderRolePermission
 import com.kanasinfo.platform.rbac.model.HolderRole
 import com.kanasinfo.platform.rbac.repository.HolderRoleRepository
+import com.kanasinfo.platform.utils.holderId
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -19,12 +21,16 @@ class HolderRoleService : SupportService<HolderRole, String>() {
     @Autowired
     private lateinit var holderRolePermissionService: HolderRolePermissionService
     @Autowired
-    private lateinit var functionContext: FunctionContext
+    private lateinit var functionRunner: FunctionRunner
 
     private  val adminDefaultName = "超级管理员"
 
     override val repository: SupportRepository<HolderRole, String>
         get() = holderRoleRepository
+
+    fun findByHolderRoles(): List<HolderRole> {
+        return holderRoleRepository.findByHolderId(holderId(), Sort.by(Sort.Direction.ASC, "createdDate"))
+    }
 
     @Transactional
     fun editRole(roleRequest: HolderRoleRequest): HolderRole {
@@ -63,7 +69,7 @@ class HolderRoleService : SupportService<HolderRole, String>() {
             role = HolderRole()
             role.name = adminDefaultName
             val permissions = mutableListOf<HolderRolePermission>()
-            functionContext.mapAllFunctionToPermission(permissions, functionContext.getFunctions(), role)
+            functionRunner.mapAllFunctionToPermission(permissions, functionRunner.getFunctions(), role)
             role.rolePermissions = permissions
             save(role)
         }

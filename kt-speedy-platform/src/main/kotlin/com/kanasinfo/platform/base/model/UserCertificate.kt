@@ -1,4 +1,4 @@
-package com.kanasinfo.platform.model
+package com.kanasinfo.platform.base.model
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.kanasinfo.data.jpa.SupportModel

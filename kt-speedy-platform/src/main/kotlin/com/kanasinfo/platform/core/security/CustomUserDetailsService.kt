@@ -1,6 +1,6 @@
 package com.kanasinfo.platform.core.security
 
-import com.kanasinfo.platform.service.PlatformUserService
+import com.kanasinfo.platform.base.service.PlatformUserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService

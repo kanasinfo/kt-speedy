@@ -2,9 +2,9 @@ package com.kanasinfo.platform.core.security
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
-import com.kanasinfo.ext.fromJsonToObject
+import com.kanasinfo.ext.isNotPresent
 import com.kanasinfo.ext.isPresent
-import com.kanasinfo.platform.model.PlatformUser
+import com.kanasinfo.platform.base.model.PlatformUser
 import com.kanasinfo.platform.utils.RSAUtils
 import com.kanasinfo.platform.utils.RedisKey
 import org.apache.commons.codec.binary.Base64
@@ -45,6 +45,7 @@ class TokenAuthenticator {
 
     companion object {
         private const val HEADER_AUTHORIZATION = "Authorization"
+        private const val HEADER_HOLDER = "Holder"
         private const val TOKEN_COOKIE_KEY = "Token"
         private const val TOKEN_ISSUER = "ks platform"
     }
@@ -103,10 +104,13 @@ class TokenAuthenticator {
                 token = cookie.value
             }
         }
+        val holderId = request.getHeader(HEADER_HOLDER)
         logger.debug("token: $token")
         try {
             if (token.isPresent()) {
                 token = token.replace("Bearer", "")
+                if(token.trim().isNotPresent())
+                    return null
                 token = String(Base64.decodeBase64(token))
 
                 val algorithm = Algorithm.RSA256(publicKey, privateKey)
@@ -132,7 +136,7 @@ class TokenAuthenticator {
                                 return null
                             }
                         }
-                        UsernamePasswordAuthenticationToken(CustomerUserPrincipal(userId, loginName, request), null, null)
+                        UsernamePasswordAuthenticationToken(CustomerUserPrincipal(userId, loginName, request, holderId), null, null)
                     } catch (e: Exception) {
                         logger.debug(e.message, e)
                         return null

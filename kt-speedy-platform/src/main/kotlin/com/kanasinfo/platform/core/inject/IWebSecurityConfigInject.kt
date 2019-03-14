@@ -1,6 +1,6 @@
 package com.kanasinfo.platform.core.inject
 
-import com.kanasinfo.platform.model.base.Holder
+import com.kanasinfo.platform.base.model.holder.Holder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer
 

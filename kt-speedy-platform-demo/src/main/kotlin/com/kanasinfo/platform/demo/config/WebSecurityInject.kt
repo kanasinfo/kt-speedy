@@ -1,7 +1,7 @@
 package com.kanasinfo.platform.demo.config
 
+import com.kanasinfo.platform.base.model.holder.Holder
 import com.kanasinfo.platform.core.inject.IWebSecurityConfigInject
-import com.kanasinfo.platform.model.base.Holder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer
 import org.springframework.stereotype.Component
@@ -13,9 +13,9 @@ import org.springframework.stereotype.Component
 @Component
 class WebSecurityInject: IWebSecurityConfigInject {
     override fun initBaseHolder(): Holder? {
-        return Holder(
-            name = "平台"
-        )
+        return Holder().apply {
+            this.name = "平台"
+        }
     }
 
     override fun addUrlAntMatchers(urlRegistry: ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry) {

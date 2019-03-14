@@ -1,10 +1,9 @@
 package com.kanasinfo.platform.core.runnner
 
 import com.kanasinfo.platform.core.inject.IWebSecurityConfigInject
-import com.kanasinfo.platform.service.HolderService
+import com.kanasinfo.platform.base.service.HolderService
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.CommandLineRunner
 import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Component
@@ -28,7 +27,6 @@ class HolderInitRunner : CommandLineRunner {
             webSecurityConfigInject?.initBaseHolder()?.let {
                 logger.info("初始化系统默认租户: $it")
                 holderService.save(it)
-
             }
         }
     }

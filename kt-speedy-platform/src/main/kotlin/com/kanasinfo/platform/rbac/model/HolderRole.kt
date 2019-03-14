@@ -2,8 +2,9 @@ package com.kanasinfo.platform.rbac.model
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.kanasinfo.ext.KUID
-import com.kanasinfo.platform.model.base.HolderProfile
-import com.kanasinfo.platform.model.base.HolderSupportModel
+import com.kanasinfo.platform.base.model.holder.HolderProfile
+import com.kanasinfo.platform.base.model.holder.HolderSupportModel
+import com.kanasinfo.platform.utils.holderId
 import javax.persistence.*
 import java.util.HashSet
 import javax.persistence.ManyToMany

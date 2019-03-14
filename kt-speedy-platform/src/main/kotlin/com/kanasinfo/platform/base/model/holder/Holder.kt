@@ -1,4 +1,4 @@
-package com.kanasinfo.platform.model.base
+package com.kanasinfo.platform.base.model.holder
 
 import com.kanasinfo.data.jpa.SupportModel
 import com.kanasinfo.ext.KUID
@@ -16,8 +16,9 @@ import javax.persistence.Table
 data class Holder(
     @Id
     @Column(length = 19)
-    val id: String = KUID.get(),
-    @Column(length = 200)
-    var name: String
+    val id: String = KUID.get()
 ) : SupportModel() {
+    @Column(length = 200)
+    lateinit var name: String
+    var active: Boolean = true
 }

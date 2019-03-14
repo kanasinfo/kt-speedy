@@ -1,7 +1,7 @@
 package com.kanasinfo.platform.rbac.model
 
 import com.kanasinfo.ext.KUID
-import com.kanasinfo.platform.model.base.HolderSupportModel
+import com.kanasinfo.platform.base.model.holder.HolderSupportModel
 import org.springframework.security.core.GrantedAuthority
 import javax.persistence.*
 

@@ -1,12 +1,12 @@
-package com.kanasinfo.platform.service
+package com.kanasinfo.platform.base.service
 
 import com.kanasinfo.data.jpa.SupportRepository
 import com.kanasinfo.data.jpa.SupportService
 import com.kanasinfo.platform.exception.BusinessException
 import com.kanasinfo.platform.exception.UserException
-import com.kanasinfo.platform.model.PlatformUser
-import com.kanasinfo.platform.model.UserCertificate
-import com.kanasinfo.platform.repository.PlatformUserRepository
+import com.kanasinfo.platform.base.model.PlatformUser
+import com.kanasinfo.platform.base.model.UserCertificate
+import com.kanasinfo.platform.base.repository.PlatformUserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service

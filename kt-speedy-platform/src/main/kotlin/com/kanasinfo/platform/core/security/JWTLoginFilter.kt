@@ -3,10 +3,9 @@ package com.kanasinfo.platform.core.security
 import cn.hutool.core.codec.Base64
 import com.kanasinfo.ext.fromJsonToObject
 import com.kanasinfo.ext.toJson
-import com.kanasinfo.platform.service.PlatformUserService
+import com.kanasinfo.platform.base.service.PlatformUserService
 import com.kanasinfo.platform.utils.RedisKey
 import org.apache.commons.io.IOUtils
-import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.data.redis.core.StringRedisTemplate
@@ -23,6 +22,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.servlet.FilterChain
 import javax.servlet.ServletException
+import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
@@ -84,6 +84,7 @@ class JWTLoginFilter(url: String, authManager: AuthenticationManager) : Abstract
         res.contentType = "application/json"
         res.characterEncoding = "UTF-8"
         res.status = HttpServletResponse.SC_OK
+
         res.writer?.println(
             hashMapOf(
                 "token" to encodedToken

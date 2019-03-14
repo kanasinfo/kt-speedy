@@ -1,7 +1,7 @@
 package com.kanasinfo.platform.core.security
 
 import com.fasterxml.jackson.annotation.JsonIgnore
-import com.kanasinfo.platform.model.PlatformUser
+import com.kanasinfo.platform.base.model.PlatformUser
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
@@ -14,10 +14,11 @@ class CustomerUserPrincipal : UserDetails {
         this.userId = user.id
     }
 
-    constructor(userId: String, loginName: String, request: HttpServletRequest) {
+    constructor(userId: String, loginName: String, request: HttpServletRequest, holderId: String?) {
         this.userId = userId
         this.request = request
         this.loginName = loginName
+        this.holderId = holderId
     }
 
     constructor(user: PlatformUser, userId: String) {
@@ -31,6 +32,7 @@ class CustomerUserPrincipal : UserDetails {
     var access: MutableList<String> = mutableListOf()
     @JsonIgnore
     var request: HttpServletRequest? = null
+    var holderId: String? = null
 
     override fun getAuthorities(): Collection<GrantedAuthority>? {
         return access.map { SimpleGrantedAuthority(it) }

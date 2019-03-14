@@ -1,6 +1,6 @@
-package com.kanasinfo.platform.controller
+package com.kanasinfo.platform.base.controller
 
-import com.kanasinfo.platform.service.PlatformUserService
+import com.kanasinfo.platform.base.service.PlatformUserService
 import com.kanasinfo.platform.utils.sessionIndividualUserId
 import com.kanasinfo.web.EmptyJsonResponse
 import org.springframework.beans.factory.annotation.Autowired

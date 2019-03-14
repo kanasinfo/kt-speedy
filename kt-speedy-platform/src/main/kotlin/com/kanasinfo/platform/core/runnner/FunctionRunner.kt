@@ -1,40 +1,43 @@
-package com.kanasinfo.platform.rbac.context
+package com.kanasinfo.platform.core.runnner
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.kanasinfo.ext.isPresent
+import com.kanasinfo.platform.rbac.context.Function
 import com.kanasinfo.platform.rbac.model.HolderRolePermission
 import com.kanasinfo.platform.rbac.model.HolderRole
 import com.kanasinfo.web.SpringContextKit
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.CommandLineRunner
+import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Component
-import javax.annotation.PostConstruct
 
 @Component
-class FunctionContext {
-    @Autowired
-    private lateinit var springContextKit: SpringContextKit
-    private lateinit var functions: ArrayList<Function>
-    private val logger = LoggerFactory.getLogger(FunctionContext::class.java)
-
-    @PostConstruct
-    fun initFunctions() {
+@Order(150)
+class FunctionRunner : CommandLineRunner {
+    override fun run(vararg args: String?) {
         val resource = springContextKit.getApplicationContext().getResource("classpath:access.json")
         if (resource.exists()) {
             functions = jacksonObjectMapper().readValue(resource.inputStream)
+            enable = true
+            logger.info("function init finish")
         } else {
-            logger.debug("access.json not exists")
+            logger.warn("access.json not exists")
         }
     }
 
+    @Autowired
+    private lateinit var springContextKit: SpringContextKit
+    private lateinit var functions: ArrayList<Function>
+    private val logger = LoggerFactory.getLogger(FunctionRunner::class.java)
+    private var enable = false
+
+    fun getRbacEnable() = enable
+
     fun getFunctions() = functions
 
-    fun mapAllFunctionToPermission(
-        permissions: MutableList<HolderRolePermission>,
-        functions: List<Function>,
-        role: HolderRole
-    ) {
+    fun mapAllFunctionToPermission(permissions: MutableList<HolderRolePermission>, functions: List<Function>, role: HolderRole) {
         functions.forEach {
             val permission = HolderRolePermission()
             permission.role = role

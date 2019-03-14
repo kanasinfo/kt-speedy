@@ -1,8 +1,8 @@
-package com.kanasinfo.platform.model.base
+package com.kanasinfo.platform.base.model.holder
 
 import com.kanasinfo.data.jpa.SupportModel
 import com.kanasinfo.ext.KUID
-import com.kanasinfo.platform.model.PlatformUser
+import com.kanasinfo.platform.base.model.PlatformUser
 import com.kanasinfo.platform.rbac.model.HolderRole
 import javax.persistence.*
 import java.util.HashSet

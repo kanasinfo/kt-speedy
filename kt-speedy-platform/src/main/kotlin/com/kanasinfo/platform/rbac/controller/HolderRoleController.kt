@@ -16,7 +16,7 @@ class HolderRoleController {
 
     @GetMapping
     fun getRoles(): List<HolderRole> {
-        return holderRoleService.findAll(Sort.by(Sort.Direction.ASC, "createdDate"))
+        return holderRoleService.findByHolderRoles()
     }
 
     @PostMapping
