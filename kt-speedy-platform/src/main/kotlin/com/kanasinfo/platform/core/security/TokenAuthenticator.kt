@@ -37,7 +37,7 @@ class TokenAuthenticator {
     private lateinit var tokenPublicKeyPath: String
     @Value("\${ks.platform.token.expiration-day}")
     private lateinit var expirationDay: Duration
-    @Value("\${ks.platform.multi-login}")
+    @Value("\${ks.platform.multi-login:}")
     private var multiLogin: Boolean? = false
 
     private lateinit var publicKey: RSAPublicKey

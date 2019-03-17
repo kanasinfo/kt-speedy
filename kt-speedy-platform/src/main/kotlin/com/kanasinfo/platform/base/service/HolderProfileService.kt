@@ -40,8 +40,6 @@ class HolderProfileService : SupportService<HolderProfile, String>() {
     private lateinit var emailSendExecutor: Executor
     @Autowired
     private lateinit var mailSendContext: MailSendContext
-    @Value("\${spring.mvc.servlet.path}")
-    private var servletPath: String? = null
     @Autowired
     private lateinit var stringRedisTemplate: StringRedisTemplate
 

@@ -1,5 +1,6 @@
 package com.kanasinfo.platform.core.mvc
 
+import com.kanasinfo.ext.isNotPresent
 import com.kanasinfo.platform.exception.BusinessException
 import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException
 import freemarker.template.Configuration
@@ -26,8 +27,8 @@ class MailSendContext {
     private val freemarkerConfig: Configuration? = null
 
     private val logger = LoggerFactory.getLogger(MailSendContext::class.java)
-    @Value("\${spring.mail.username}")
-    private lateinit var emailFrom: String
+    @Value("\${spring.mail.username:}")
+    private var emailFrom: String? = null
 
     /**
      * @param to       收件人
@@ -42,6 +43,10 @@ class MailSendContext {
      */
     @Throws(MessagingException::class, IOException::class, TemplateException::class, BusinessException::class)
     fun sendMail(to: Array<String?>, subject: String, template: String, model: Map<String, Any?>, cc: Array<String>? = null, bcc: Array<String>? = null) {
+
+        if (emailFrom.isNotPresent()) {
+            throw BusinessException("EMAIL_FROM_NOT_SET","please set 'spring.mail.username'")
+        }
         val mimeMessage = javaMailSender!!.createMimeMessage()
         val helper = MimeMessageHelper(mimeMessage, true)
         helper.setFrom(emailFrom, emailFrom)

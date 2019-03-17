@@ -12,11 +12,11 @@ import javax.servlet.ServletContextListener
  */
 class GMTTimeZoneSetListener : ServletContextListener {
 
-    @Value("\${ks.platform.timezone.utc}")
-    private var utcEnable: Boolean = false
+    @Value("\${ks.platform.timezone.utc:}")
+    private var utcEnable: Boolean? = false
 
     override fun contextInitialized(sce: ServletContextEvent) {
-        if(utcEnable) {
+        if(utcEnable == true) {
             logger.info("set defalut timezone: GMT")
             TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
         }

@@ -31,5 +31,6 @@ data class PlatformUser(
      * 当前租户
      */
     @Transient
+    @JsonIgnore
     var holderProfile: HolderProfile? = null
 }

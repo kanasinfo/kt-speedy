@@ -31,7 +31,7 @@ class JWTLoginFilter(url: String, authManager: AuthenticationManager) : Abstract
 
     @Value("\${ks.platform.token.expiration-day}")
     private lateinit var expirationDays: Duration
-    @Value("\${ks.platform.multi-login}")
+    @Value("\${ks.platform.multi-login:}")
     private var multiLogin: Boolean? = false
 
     @Autowired
