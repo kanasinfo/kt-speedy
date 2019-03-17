@@ -66,6 +66,7 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
                     .antMatchers("${getServletPath()}/loginfail").permitAll()          // 允许
                     .antMatchers("${getServletPath()}/logout").permitAll()          // 允许
                     .antMatchers("${getServletPath()}/callback/**").permitAll()          // 允许
+                    .antMatchers("${getServletPath()}/pt/hello").permitAll()          // 允许
                     .antMatchers("${getServletPath()}/**").authenticated()
                 .and()
                 // mobile b login control
