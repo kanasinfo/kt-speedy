@@ -53,7 +53,7 @@ class PlatformUserService : SupportService<PlatformUser, String>() {
 
     @Transactional
     fun addPlatformUser(loginName: String, nickname: String, holderId: String, type: UserCertificate.Type): PlatformUser {
-        var platformUser = findUserCertificateByAccount(loginName)?.platformUser ?: PlatformUser()
+        var platformUser = findUserCertificateByLoginName(loginName)?.platformUser ?: PlatformUser()
         if (holderProfileService.findByHolderAndPlatform(holderId, platformUser) != null) {
             return platformUser
         }
@@ -71,7 +71,7 @@ class PlatformUserService : SupportService<PlatformUser, String>() {
     }
 
 
-    fun findUserCertificateByAccount(username: String): UserCertificate? {
+    fun findUserCertificateByLoginName(username: String): UserCertificate? {
         return userCertificateService.findByLoginName(username)
     }
 

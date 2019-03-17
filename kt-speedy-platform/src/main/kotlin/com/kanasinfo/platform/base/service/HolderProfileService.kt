@@ -2,7 +2,6 @@ package com.kanasinfo.platform.base.service
 
 import cn.hutool.core.codec.Base64
 import cn.hutool.core.util.RandomUtil
-import cn.hutool.crypto.SecureUtil
 import com.kanasinfo.data.jpa.SupportRepository
 import com.kanasinfo.data.jpa.SupportService
 import com.kanasinfo.ext.fromJsonToObject
@@ -80,6 +79,11 @@ class HolderProfileService : SupportService<HolderProfile, String>() {
     @Throws(BusinessException::class)
     @Transactional
     fun addProfileByEmail(email: String, nickname: String, holderId: String): HolderProfile {
+
+        if (platformUserService.findUserCertificateByLoginName(email) != null) {
+            throw HolderProfileException.HOLDER_PROFILE_EXISTS_EXCEPTION
+        }
+
         val holderProfile =
             platformUserService.addPlatformUser(email, nickname, holderId, UserCertificate.Type.EMAIL).holderProfile ?: throw UserException.USER_CREATE_FAIL_EXCEPTION
         sendActivationCode(email, holderProfile.id)

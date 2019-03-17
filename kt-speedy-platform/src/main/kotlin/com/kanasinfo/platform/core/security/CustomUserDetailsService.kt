@@ -16,7 +16,7 @@ class CustomUserDetailsService : UserDetailsService {
 
     @Throws(UsernameNotFoundException::class)
     override fun loadUserByUsername(username: String): UserDetails {
-        val account = platformUserService.findUserCertificateByAccount(username) ?: throw UsernameNotFoundException(username)
+        val account = platformUserService.findUserCertificateByLoginName(username) ?: throw UsernameNotFoundException(username)
         account.platformUser.userCertificate = account
         return CustomerUserPrincipal(account.platformUser, account.platformUser.id)
     }
