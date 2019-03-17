@@ -36,7 +36,6 @@ class RSAUtils {
             val keyFactory = KeyFactory.getInstance("RSA")
 
             val publicKey = keyFactory.generatePublic(pubKeySpec)
-            println(publicKey)
             return publicKey
         }
 
