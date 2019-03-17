@@ -1,6 +1,7 @@
 package com.kanasinfo.platform.base.repository
 
 import com.kanasinfo.data.jpa.SupportRepository
+import com.kanasinfo.platform.base.model.PlatformUser
 import com.kanasinfo.platform.base.model.UserCertificate
 import org.springframework.stereotype.Repository
 
@@ -11,4 +12,5 @@ import org.springframework.stereotype.Repository
 @Repository
 interface UserCertificateRepository : SupportRepository<UserCertificate, String> {
     fun findByLoginName(username: String): UserCertificate?
+    fun findByPlatformUser(platformUser: PlatformUser): List<UserCertificate>
 }

@@ -20,5 +20,11 @@ class UserException{
          * 用户两次密码不匹配
          */
         val USER_PASSWORD_MISMATCH_EXCEPTION = BusinessException("USER_PASSWORD_MISMATCH", "USER_PASSWORD_MISMATCH", HttpStatus.CONFLICT)
+
+        /**
+         * 用户创建失败
+         */
+        val USER_CREATE_FAIL_EXCEPTION = BusinessException("USER_CREATE_FAIL", "USER_CREATE_FAIL", HttpStatus.INTERNAL_SERVER_ERROR)
     }
+
 }

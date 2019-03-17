@@ -28,6 +28,10 @@ class UserCertificateService : SupportService<UserCertificate, String>() {
         return save(userCertificate)
     }
 
+    fun findByPlatformUser(platformUser: PlatformUser): List<UserCertificate> {
+        return userCertificateRepository.findByPlatformUser(platformUser)
+    }
+
     @Autowired
     private lateinit var userCertificateRepository: UserCertificateRepository
 

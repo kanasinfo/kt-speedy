@@ -46,8 +46,20 @@ class PlatformUserService : SupportService<PlatformUser, String>() {
         val platformUser = create(password)
         platformUser.userCertificate = userCertificateService.createUserCertificate(platformUser, loginName, type)
         holderId?.let {
-            holderProfileService.createHolderProfile(platformUser, it)
+            platformUser.holderProfile = holderProfileService.createHolderProfile(platformUser, holderId)
         }
+        return platformUser
+    }
+
+    @Transactional
+    fun addPlatformUser(loginName: String, nickname: String, holderId: String, type: UserCertificate.Type): PlatformUser {
+        var platformUser = findUserCertificateByAccount(loginName)?.platformUser ?: PlatformUser()
+        if (holderProfileService.findByHolderAndPlatform(holderId, platformUser) != null) {
+            return platformUser
+        }
+        platformUser = save(platformUser)
+        platformUser.userCertificate = userCertificateService.createUserCertificate(platformUser, loginName, type)
+        platformUser.holderProfile = holderProfileService.createHolderProfile(platformUser, holderId, nickname)
         return platformUser
     }
 

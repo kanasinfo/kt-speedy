@@ -6,6 +6,10 @@ package com.kanasinfo.platform.utils
  **/
 object RedisKey{
     fun getTokenKey(userId: String): String {
-        return "kt_user_token_$userId"
+        return "ks_user_token_$userId"
+    }
+
+    fun getUserActiveCodeKey(userId: String): String {
+        return "ks_user_active_code_$userId"
     }
 }

@@ -1,7 +1,5 @@
 package com.kanasinfo.platform.core.mvc
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.databind.SerializationFeature
 import com.kanasinfo.web.DateConverter
 import org.springframework.boot.web.server.ErrorPage
 import org.springframework.boot.web.server.ErrorPageRegistrar
@@ -10,20 +8,16 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.support.ConversionServiceFactoryBean
 import org.springframework.http.HttpStatus
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
 import org.springframework.web.servlet.LocaleResolver
-import org.springframework.web.servlet.config.annotation.*
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 import org.springframework.web.servlet.i18n.CookieLocaleResolver
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor
 import java.util.*
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
-import org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter
-import org.springframework.http.converter.xml.SourceHttpMessageConverter
-import org.springframework.http.converter.ResourceHttpMessageConverter
-import org.springframework.http.converter.ByteArrayHttpMessageConverter
-import org.springframework.http.converter.StringHttpMessageConverter
-import org.springframework.http.converter.HttpMessageConverter
-
-
+import java.util.concurrent.Executor
+import java.util.concurrent.ThreadPoolExecutor
 
 
 @Configuration
@@ -76,13 +70,21 @@ class WebMVCConfigurerExtAdapter : WebMvcConfigurer {
         bean.setConverters(setOf(DateConverter()))
         return bean
     }
-//
-//    override fun addCorsMappings(registry: CorsRegistry) {
-//        registry.addMapping("/api/**")
-//            .allowedHeaders("*")
-//            .exposedHeaders("Authorization")
-//            .allowedOrigins("*").allowedMethods("*");
-//    }
+
+    @Bean
+    fun emailSendExecutor(): Executor {
+        val executor = ThreadPoolTaskExecutor()
+        executor.corePoolSize = 5
+        executor.maxPoolSize = 50
+        executor.setQueueCapacity(200)
+        executor.threadNamePrefix = "EmailSend-"
+        executor.setWaitForTasksToCompleteOnShutdown(true)
+        // rejection-policy：当pool已经达到max size的时候，如何处理新任务
+        // CALLER_RUNS：不在新线程中执行任务，而是有调用者所在的线程来执行
+        executor.setRejectedExecutionHandler(ThreadPoolExecutor.CallerRunsPolicy())
+        executor.initialize()
+        return executor
+    }
 
     /**
      * 静态资源 映射

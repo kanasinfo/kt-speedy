@@ -38,4 +38,9 @@ data class HolderProfile(
     )
     @ManyToMany(fetch = FetchType.LAZY, cascade = [CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH])
     val roles: Set<HolderRole> = HashSet()
+    /**
+     * 是否激活
+     */
+    var active: Boolean = false
+    var loginName: String? = null
 }

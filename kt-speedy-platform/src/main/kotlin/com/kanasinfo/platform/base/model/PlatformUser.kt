@@ -3,6 +3,7 @@ package com.kanasinfo.platform.base.model
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.kanasinfo.data.jpa.SupportModel
 import com.kanasinfo.ext.KUID
+import com.kanasinfo.platform.base.model.holder.HolderProfile
 import javax.persistence.*
 
 /**
@@ -25,4 +26,10 @@ data class PlatformUser(
      */
     @Transient
     var userCertificate: UserCertificate? = null
+
+    /**
+     * 当前租户
+     */
+    @Transient
+    var holderProfile: HolderProfile? = null
 }
