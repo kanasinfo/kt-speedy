@@ -1,5 +1,7 @@
 package com.kanasinfo.platform.base.controller
 
+import com.kanasinfo.platform.base.model.PlatformUser
+import com.kanasinfo.platform.base.service.HolderService
 import com.kanasinfo.platform.base.service.PlatformUserService
 import com.kanasinfo.platform.utils.sessionIndividualUserId
 import com.kanasinfo.web.EmptyJsonResponse
@@ -20,6 +22,9 @@ import org.springframework.web.bind.annotation.RestController
 class PlatformController {
     @Autowired
     private lateinit var platformUserService: PlatformUserService
+    @Autowired
+    private lateinit var holderService: HolderService
+
     @Value("\${ks.platform.version:}")
     private val version: String? = null
 
@@ -36,6 +41,14 @@ class PlatformController {
 
     @GetMapping("/hello")
     fun saveHello(): String {
-        return "Speedy Platform is running in version $version !"
+        return "Speedy Platform is running in version ${version ?: "none"} !"
+    }
+
+    @GetMapping("/init")
+    fun initUser(): PlatformUser? {
+        if (platformUserService.count() > 0) {
+            return null
+        }
+        return platformUserService.createPlatformUser("admin", "admin", holderService.findFirst().id)
     }
 }

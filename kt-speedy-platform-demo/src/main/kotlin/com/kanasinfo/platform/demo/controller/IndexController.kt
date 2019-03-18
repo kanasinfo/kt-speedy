@@ -27,7 +27,6 @@ class IndexController {
 
     @GetMapping("/init")
     fun initUser(): PlatformUser {
-        SecurityContextHolder.getContext().authentication.principal
         return platformUserService.createPlatformUser("admin", "admin", holderService.findFirst().id)
     }
 
