@@ -9,14 +9,16 @@ import com.kanasinfo.platform.rbac.model.HolderRole
 import com.kanasinfo.web.SpringContextKit
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.CommandLineRunner
+import org.springframework.boot.ApplicationArguments
+import org.springframework.boot.ApplicationRunner
 import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Component
 
 @Component
 @Order(150)
-class FunctionRunner : CommandLineRunner {
-    override fun run(vararg args: String?) {
+class FunctionRunner : ApplicationRunner {
+
+    override fun run(args: ApplicationArguments?) {
         val resource = springContextKit.getApplicationContext().getResource("classpath:access.json")
         if (resource.exists()) {
             functions = jacksonObjectMapper().readValue(resource.inputStream)
