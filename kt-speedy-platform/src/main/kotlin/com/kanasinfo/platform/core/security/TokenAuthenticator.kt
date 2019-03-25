@@ -5,6 +5,8 @@ import com.auth0.jwt.algorithms.Algorithm
 import com.kanasinfo.ext.isNotPresent
 import com.kanasinfo.ext.isPresent
 import com.kanasinfo.platform.base.model.PlatformUser
+import com.kanasinfo.platform.base.service.HolderService
+import com.kanasinfo.platform.exception.HolderException
 import com.kanasinfo.platform.utils.RSAUtils
 import com.kanasinfo.platform.utils.RedisKey
 import org.apache.commons.codec.binary.Base64
@@ -39,6 +41,8 @@ class TokenAuthenticator {
     private lateinit var expirationDay: Duration
     @Value("\${ks.platform.multi-login:}")
     private var multiLogin: Boolean? = false
+    @Autowired
+    private lateinit var holderService: HolderService
 
     private lateinit var publicKey: RSAPublicKey
     private lateinit var privateKey: RSAPrivateKey
@@ -106,7 +110,11 @@ class TokenAuthenticator {
         }
         val holderId = request.getHeader(HEADER_HOLDER)
         logger.debug("token: $token")
+
         try {
+            if (holderId.isPresent() && holderService.getOne(holderId) == null) {
+                throw HolderException.HOLDER_NOT_FOUND_EXCEPTION
+            }
             if (token.isPresent()) {
                 token = token.replace("Bearer", "")
                 if(token.trim().isNotPresent())

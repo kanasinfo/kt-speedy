@@ -16,12 +16,16 @@ fun sessionIndividualUserId(): String {
 }
 
 fun sessionUserPrincipal(): CustomerUserPrincipal? {
-    val principal = SecurityContextHolder.getContext().authentication.principal
+    val principal = SecurityContextHolder.getContext()?.authentication?.principal
     return if (principal == null) {
         null
     } else {
         principal as CustomerUserPrincipal
     }
+}
+
+fun holderIdOrNull(): String? {
+    return sessionUserPrincipal()?.holderId
 }
 
 fun holderId(): String {

@@ -29,7 +29,7 @@ class HolderRoleService : SupportService<HolderRole, String>() {
         get() = holderRoleRepository
 
     fun findByHolderRoles(): List<HolderRole> {
-        return holderRoleRepository.findByHolderId(holderId(), Sort.by(Sort.Direction.ASC, "createdDate"))
+        return holderRoleRepository.findByHolderId("psfvRdHJajCuXyDvU4n", Sort.by(Sort.Direction.ASC, "createdDate"))
     }
 
     @Transactional

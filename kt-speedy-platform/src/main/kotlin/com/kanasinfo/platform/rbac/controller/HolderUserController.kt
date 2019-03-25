@@ -19,6 +19,7 @@ class HolderUserController{
     private lateinit var holderProfileService: HolderProfileService
     @Autowired
     private lateinit var userCertificateService: UserCertificateService
+
     @GetMapping
     fun getUsers(): List<HolderProfile>{
         return holderProfileService.findByHolder(holderId())
