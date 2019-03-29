@@ -9,7 +9,7 @@
     </parent>
     <groupId>com.kanasinfo</groupId>
     <artifactId>kt-speedy</artifactId>
-    <version>3.0.16</version>
+    <version>3.0.21</version>
     <modules>
         <module>kt-speedy-data-jpa</module>
         <module>kt-speedy-ext</module>
@@ -36,7 +36,7 @@
         <repository>
             <id>kanasinfo-maven-releases</id>
             <name>maven-releases</name>
-            <url>http://nexus.kanasinfo.cn/repository/maven-releases/</url>
+            <url>http://nxs.kanasinfo.cn/repository/maven-releases/</url>
         </repository>
         <repository>
             <id>nexus-aliyun</id>
@@ -103,11 +103,11 @@
     <distributionManagement>
         <repository>
             <id>maven-releases</id>
-            <url>http://nexus.kanasinfo.cn/repository/maven-releases/</url>
+            <url>http://nxs.kanasinfo.cn/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
             <id>maven-snapshots</id>
-            <url>http://nexus.kanasinfo.cn/repository/maven-snapshots/</url>
+            <url>http://nxs.kanasinfo.cn/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
     <build>

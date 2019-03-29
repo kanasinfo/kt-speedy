@@ -41,6 +41,7 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
     override fun configure(auth: AuthenticationManagerBuilder) {
         auth.authenticationProvider(authenticationProvider())
             .userDetailsService<UserDetailsService>(customUserDetailsService)
+        webSecurityConfigInject?.configure(auth)
     }
 
     @Bean
@@ -48,7 +49,7 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
 
     @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
-        val urlRegistry = http
+        var urlRegistry = http
                 .exceptionHandling()
                 .authenticationEntryPoint(restAuthenticationEntryPoint())
                 .and()
@@ -61,7 +62,7 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
             .antMatchers(HttpMethod.OPTIONS)
             .permitAll()
         webSecurityConfigInject?.addUrlAntMatchers(urlRegistry)
-        urlRegistry.antMatchers("${getServletPath()}/webjars/**").permitAll()         // 允许
+        val httpSecurity = urlRegistry.antMatchers("${getServletPath()}/webjars/**").permitAll()         // 允许
                     .antMatchers("${getServletPath()}/resources/**").permitAll()         // 允许
                     .antMatchers("${getServletPath()}/loginfail").permitAll()          // 允许
                     .antMatchers("${getServletPath()}/logout").permitAll()          // 允许
@@ -79,7 +80,9 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
                         jwtAuthenticationFilter(),
                         UsernamePasswordAuthenticationFilter::class.java
                 )
-                .logout()
+
+        webSecurityConfigInject?.addFilter(httpSecurity, authenticationManager())
+        httpSecurity.logout()
                 .logoutUrl("${getServletPath()}/logout")
                 .logoutSuccessHandler { _, response, _ ->
                     response.writer.println("logout success!")
@@ -126,6 +129,8 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
             .antMatchers("/img/**")
             .antMatchers("/js/**")
             .antMatchers("/fonts/**")
+
+        webSecurityConfigInject?.configure(web)
     }
 
     @Bean

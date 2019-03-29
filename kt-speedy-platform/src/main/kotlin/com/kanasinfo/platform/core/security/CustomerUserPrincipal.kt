@@ -14,7 +14,7 @@ class CustomerUserPrincipal : UserDetails {
         this.userId = user.id
     }
 
-    constructor(userId: String, loginName: String, request: HttpServletRequest, holderId: String?) {
+    constructor(userId: String, loginName: String, request: HttpServletRequest?, holderId: String?) {
         this.userId = userId
         this.request = request
         this.loginName = loginName

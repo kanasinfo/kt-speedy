@@ -1,7 +1,10 @@
 package com.kanasinfo.platform.core.inject
 
 import com.kanasinfo.platform.base.model.holder.Holder
+import org.springframework.security.authentication.AuthenticationManager
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
+import org.springframework.security.config.annotation.web.builders.WebSecurity
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer
 
 /**
@@ -18,5 +21,16 @@ interface IWebSecurityConfigInject {
      * 初始化基本的租户，如果集成系统为单租户（或者无租户），则实现此方法。platform会将所有的业务逻辑自动带入此租户进行逻辑处理
      */
     fun initBaseHolder(): Holder?
+
+    /**
+     * 添加security filter
+     */
+    fun addFilter(
+        httpSecurity: HttpSecurity,
+        authenticationManager: AuthenticationManager
+    )
+
+    fun configure(auth: AuthenticationManagerBuilder)
+    fun configure(auth: WebSecurity)
 
 }

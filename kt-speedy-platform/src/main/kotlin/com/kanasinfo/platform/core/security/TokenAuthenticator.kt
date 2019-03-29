@@ -4,7 +4,7 @@ import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.kanasinfo.ext.isNotPresent
 import com.kanasinfo.ext.isPresent
-import com.kanasinfo.platform.base.model.PlatformUser
+import com.kanasinfo.platform.base.model.UserCertificate
 import com.kanasinfo.platform.base.service.HolderService
 import com.kanasinfo.platform.exception.HolderException
 import com.kanasinfo.platform.utils.RSAUtils
@@ -55,7 +55,7 @@ class TokenAuthenticator {
     }
 
     @PostConstruct
-    fun initTokenKey(){
+    fun initTokenKey() {
         this.publicKey = getPublicKey() as RSAPublicKey
         this.privateKey = getPrivateKey() as RSAPrivateKey
     }
@@ -64,14 +64,14 @@ class TokenAuthenticator {
     private lateinit var stringRedisTemplate: StringRedisTemplate
 
     private fun getExpiration() = DateTime.now().plusDays(expirationDay.toDays().toInt()).toDate()
-    private fun createToken(authentication: Authentication, user: PlatformUser): String {
+    private fun createToken(authentication: Authentication, userId: String, type: UserCertificate.Type?): String {
 
         val algorithm = Algorithm.RSA256(publicKey, privateKey)
         return JWT.create()
             // 保护权限角色
             .withSubject(authentication.name)
-            .withClaim("userId", user.id)
-            .withClaim("type", user.userCertificate?.type.toString())
+            .withClaim("userId", userId)
+            .withClaim("type", (type ?: "").toString())
             .withExpiresAt(getExpiration())
             .withIssuer(TOKEN_ISSUER)
             .sign(algorithm)
@@ -80,8 +80,8 @@ class TokenAuthenticator {
     /**
      * 创建登录令牌
      */
-    fun createAuthentication(authentication: Authentication, user: PlatformUser): String {
-        return createToken(authentication, user)
+    fun createAuthentication(authentication: Authentication, userId: String, type: UserCertificate.Type?): String {
+        return createToken(authentication, userId, type)
     }
 
     fun getPrivateKey(): PrivateKey {
@@ -117,7 +117,7 @@ class TokenAuthenticator {
             }
             if (token.isPresent()) {
                 token = token.replace("Bearer", "")
-                if(token.trim().isNotPresent())
+                if (token.trim().isNotPresent())
                     return null
                 token = String(Base64.decodeBase64(token))
 

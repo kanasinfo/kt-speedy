@@ -49,7 +49,7 @@ class JWTLoginFilter(url: String, authManager: AuthenticationManager) : Abstract
     @Throws(AuthenticationException::class, IOException::class, ServletException::class)
     override fun attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse): Authentication? {
         return try {
-            val creds = IOUtils.toString(req.inputStream, Charsets.UTF_8).fromJsonToObject(AccountCredentials::class.java)
+            val creds = IOUtils.toString(req.inputStream, Charsets.UTF_8.name()).fromJsonToObject(AccountCredentials::class.java)
             authenticationManager.authenticate(
                 UsernamePasswordAuthenticationToken(creds.username, creds.password, Collections.emptyList())
             )
@@ -69,7 +69,8 @@ class JWTLoginFilter(url: String, authManager: AuthenticationManager) : Abstract
         val user = platformUserService.getOne((authentication.principal as CustomerUserPrincipal).userId)!!
         val token = tokenAuthenticator.createAuthentication(
             authentication,
-            user
+            user.id,
+            user.userCertificate?.type
         )
 
         logger.debug("Token[${user.userCertificate?.loginName}]: $token")
