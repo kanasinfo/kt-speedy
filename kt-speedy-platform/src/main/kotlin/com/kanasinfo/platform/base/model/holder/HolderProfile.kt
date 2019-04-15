@@ -37,7 +37,7 @@ data class HolderProfile(
         inverseJoinColumns = [JoinColumn(name = "role_id")]
     )
     @ManyToMany(fetch = FetchType.LAZY, cascade = [CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH])
-    val roles: Set<HolderRole> = HashSet()
+    val roles = mutableSetOf<HolderRole>()
     /**
      * 是否激活
      */
