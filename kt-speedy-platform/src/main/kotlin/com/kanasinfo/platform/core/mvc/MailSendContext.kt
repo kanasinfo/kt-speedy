@@ -1,6 +1,5 @@
 package com.kanasinfo.platform.core.mvc
 
-import com.kanasinfo.ext.isNotPresent
 import com.kanasinfo.ext.presentOrNull
 import com.kanasinfo.platform.exception.BusinessException
 import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException
