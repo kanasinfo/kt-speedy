@@ -195,6 +195,13 @@ fun <T> MongoTemplate.findOneWithExcludeFields(criteria: Criteria, includeFields
     return this.findOne(query, entityClass)
 }
 
+fun Update.setOrUnset(key: String, value: Any?): Update {
+    value?.let {
+        this.set(key, it)
+    } ?: this.unset(key)
+    return this
+}
+
 fun String.toObjectId(): ObjectId {
     return ObjectId(this)
 }
