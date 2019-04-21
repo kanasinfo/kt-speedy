@@ -51,6 +51,13 @@ fun String.substringMax(count: Int): String {
 /**
  * 字符串不为空或空白
  */
+fun String?.presentOrNull(): String?{
+    return if(this.isNullOrBlank())
+        null
+    else
+        this
+}
+
 fun String?.isPresent(): Boolean {
     return !this.isNullOrBlank()
 }

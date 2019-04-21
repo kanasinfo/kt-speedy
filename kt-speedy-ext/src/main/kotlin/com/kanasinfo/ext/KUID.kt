@@ -25,28 +25,28 @@ object KUID {
     }
 
     private fun toString(i: Long, radix: Int): String {
-        var i = i
-        var radix = radix
-        if (radix < MIN_RADIX || radix > MAX_RADIX)
-            radix = 10
-        if (radix == 10)
-            return java.lang.Long.toString(i)
+        var j = i
+        var r = radix
+        if (r < MIN_RADIX || r > MAX_RADIX)
+            r = 10
+        if (r == 10)
+            return java.lang.Long.toString(j)
 
         val size = 65
         var charPos = 64
 
         val buf = CharArray(size)
-        val negative = i < 0
+        val negative = j < 0
 
         if (!negative) {
-            i = -i
+            j = -j
         }
 
-        while (i <= -radix) {
-            buf[charPos--] = digits[(-(i % radix)).toInt()]
-            i /= radix
+        while (j <= -r) {
+            buf[charPos--] = digits[(-(j % r)).toInt()]
+            j /= r
         }
-        buf[charPos] = digits[(-i).toInt()]
+        buf[charPos] = digits[(-j).toInt()]
 
         if (negative) {
             buf[--charPos] = '-'

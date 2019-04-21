@@ -42,13 +42,11 @@ class MailSendContext {
      */
     @Throws(MessagingException::class, IOException::class, TemplateException::class, BusinessException::class)
     fun sendMail(to: Array<String?>, subject: String, template: String, model: Map<String, Any?>, cc: Array<String>? = null, bcc: Array<String>? = null) {
-
-        if (emailFrom.isNullOrBlank()) {
-            throw BusinessException("EMAIL_FROM_NOT_SET","please set 'spring.mail.username'")
-        }
         val mimeMessage = javaMailSender!!.createMimeMessage()
         val helper = MimeMessageHelper(mimeMessage, true)
-        helper.setFrom(emailFrom, emailFrom)
+        (emailFrom ?: throw BusinessException("EMAIL_FROM_NOT_SET", "please set 'spring.mail.username'")).let {
+            helper.setFrom(it, it)
+        }
         helper.setTo(to)
         if (cc != null && cc.isNotEmpty())
             helper.setCc(cc)

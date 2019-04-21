@@ -7,12 +7,12 @@ class BusinessException(val code: String, override val message: String?, var htt
         /**
          * 数据未找到
          */
-        val DATA_NOT_FOUND_EXCEPTION =
+        val DATA_NOT_FOUND =
             BusinessException("DATA_NOT_FOUND", "data not found", HttpStatus.NOT_FOUND)
         /**
          * 数据重复
          */
-        val DATA_DUPLICATED_EXCEPTION =
+        val DATA_DUPLICATED =
             BusinessException("DATA_DUPLICATED", "data duplicated", HttpStatus.CONFLICT)
     }
 }

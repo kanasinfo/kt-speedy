@@ -9,17 +9,11 @@ import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse
 import com.aliyuncs.profile.DefaultProfile
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.logging.Logger
 
 /**
  * 阿里云短信发送工具类
  */
-class AliyunSmsKt {
-    private lateinit var client: DefaultAcsClient
-
-    private constructor(client: DefaultAcsClient) {
-        this.client = client
-    }
+class AliyunSmsKt private constructor(private var client: DefaultAcsClient) {
 
     companion object {
         fun build(config: Config): AliyunSmsKt {
