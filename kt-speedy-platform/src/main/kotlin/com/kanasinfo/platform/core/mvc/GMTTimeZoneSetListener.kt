@@ -1,6 +1,5 @@
 package com.kanasinfo.platform.core.mvc
 
-import com.kanasinfo.ext.isPresent
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import java.util.*
@@ -24,7 +23,7 @@ class GMTTimeZoneSetListener : ServletContextListener {
             logger.info("set defalut timezone: GMT")
             TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
         }
-        if (timezone.isPresent()) {
+        if (!timezone.isNullOrBlank()) {
             logger.info("set defalut timezone: $timezone")
             TimeZone.setDefault(TimeZone.getTimeZone(timezone))
         }
